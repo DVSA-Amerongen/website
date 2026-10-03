@@ -1,0 +1,368 @@
+{
+ "_uitleg": "Groepen: hoofd, partner, bord, bal, overig. Nieuwe sponsor: kopieer een blok, zet het logo in static/img/sponsors/. Laat website leeg als er geen site is.",
+ "sponsors": [
+  {
+   "naam": "Goed-Bouw Bouwaannemers",
+   "website": "https://www.goed-bouw.nl/",
+   "logo": "/img/sponsors/goed-bouw-bouwaannemers.png",
+   "achtergrond": "#161617",
+   "groep": "hoofd",
+   "rol": "Hoofdsponsor van DVSA en leverancier van bouwmaterialen voor het sportpark."
+  },
+  {
+   "naam": "ING",
+   "website": "https://www.ing.nl/",
+   "logo": "/img/sponsors/ing.png",
+   "achtergrond": "#ffffff",
+   "groep": "partner",
+   "rol": "Partner · straks shirtsponsor van het meidenteam"
+  },
+  {
+   "naam": "Davelaar Sport",
+   "website": "https://www.davelaarsport.nl/",
+   "logo": "/img/sponsors/davelaar-sport.png",
+   "achtergrond": "#ffffff",
+   "groep": "partner",
+   "rol": "Kleding- en balsponsor, levert de wedstrijdshirts"
+  },
+  {
+   "naam": "Bootsystems",
+   "website": "https://www.bootsystems.nl/",
+   "logo": "/img/sponsors/bootsystems.png",
+   "achtergrond": "#ffffff",
+   "groep": "partner",
+   "rol": "Bordsponsor en host van deze website"
+  },
+  {
+   "naam": "Technivorm Moccamaster",
+   "website": "",
+   "logo": "/img/sponsors/technivorm-moccamaster.png",
+   "achtergrond": "#ffffff",
+   "groep": "partner",
+   "rol": "Bord-, spandoek- en vlaggensponsor"
+  },
+  {
+   "naam": "Crossbow Coffee",
+   "website": "",
+   "logo": "/img/sponsors/crossbow-coffee.png",
+   "achtergrond": "#000000",
+   "groep": "overig"
+  },
+  {
+   "naam": "Autobedrijf AIM",
+   "website": "https://autobedrijfaim.nl/",
+   "logo": "/img/sponsors/autobedrijf-aim.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Autobedrijf H. Buijink",
+   "website": "https://autobedrijf-buijink.nl/",
+   "logo": "/img/sponsors/autobedrijf-h-buijink.png",
+   "achtergrond": "#0b0c0c",
+   "groep": "bord"
+  },
+  {
+   "naam": "Autobedrijf Van Gent",
+   "website": "https://www.vangent.nl/",
+   "logo": "/img/sponsors/autobedrijf-van-gent.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Axent Reclame",
+   "website": "https://www.axentreclame.nl/",
+   "logo": "/img/sponsors/axent-reclame.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Alres Products BV",
+   "website": "https://www.alres.site/",
+   "logo": "/img/sponsors/alres-products-bv.png",
+   "achtergrond": "#ffffff",
+   "groep": "bal"
+  },
+  {
+   "naam": "Architectenbureau Bronsvoort BNA",
+   "website": "https://www.bronsvoortblaak.nl/",
+   "logo": "/img/sponsors/architectenbureau-bronsvoort-bna.png",
+   "achtergrond": "#ffffff",
+   "groep": "overig"
+  },
+  {
+   "naam": "Bamboo City",
+   "website": "https://bamboocity.nl/",
+   "logo": "/img/sponsors/bamboo-city.png",
+   "achtergrond": "#ffffff",
+   "groep": "bal"
+  },
+  {
+   "naam": "Van Breenen",
+   "website": "https://www.brenen.nl/",
+   "logo": "/img/sponsors/van-breenen.png",
+   "achtergrond": "#1c462d",
+   "groep": "bord"
+  },
+  {
+   "naam": "Camping Het Leersumse Veld",
+   "website": "https://campinghetleersumseveld.nl/",
+   "logo": "/img/sponsors/camping-het-leersumse-veld.png",
+   "achtergrond": "#365246",
+   "groep": "bal"
+  },
+  {
+   "naam": "Chinees Restaurant De Grote Muur",
+   "website": "https://www.degrotemuurleersum.nl/",
+   "logo": "/img/sponsors/chinees-restaurant-de-grote-muur.png",
+   "achtergrond": "#a3a3a3",
+   "groep": "bord"
+  },
+  {
+   "naam": "Circet",
+   "website": "https://www.circet.nl/",
+   "logo": "/img/sponsors/circet.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "DK Accountants",
+   "website": "https://www.dk-accountants.nl/",
+   "logo": "/img/sponsors/dk-accountants.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "EB Cardetail",
+   "website": "https://www.eb-cardetail.nl/",
+   "logo": "/img/sponsors/eb-cardetail.png",
+   "achtergrond": "#ffffff",
+   "groep": "overig"
+  },
+  {
+   "naam": "Expert Leersum",
+   "website": "https://www.expert.nl/winkels/leersum",
+   "logo": "/img/sponsors/expert-leersum.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Fox Hair Fashion",
+   "website": "http://foxhairfashion.nl/",
+   "logo": "/img/sponsors/fox-hair-fashion.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Grillroom Snackbar Pizzeria Solo",
+   "website": "https://www.solo-amerongen.nl/",
+   "logo": "/img/sponsors/grillroom-snackbar-pizzeria-solo.png",
+   "achtergrond": "#1c4a3b",
+   "groep": "bord"
+  },
+  {
+   "naam": "Haze Timmerwerken",
+   "website": "http://www.hazetimmerwerken.nl/",
+   "logo": "/img/sponsors/haze-timmerwerken.png",
+   "achtergrond": "#ffffff",
+   "groep": "bal"
+  },
+  {
+   "naam": "Heel veel plezier",
+   "website": "https://www.heelveelplezier.nl/",
+   "logo": "/img/sponsors/heel-veel-plezier.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "HooVos Projecten",
+   "website": "https://www.hoovos.nl/",
+   "logo": "/img/sponsors/hoovos-projecten.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Hotel Restaurant Buitenlust",
+   "website": "https://www.buitenlust-amerongen.nl/",
+   "logo": "/img/sponsors/hotel-restaurant-buitenlust.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Huibers",
+   "website": "https://www.huibers.info/",
+   "logo": "/img/sponsors/huibers.png",
+   "achtergrond": "#ffffff",
+   "groep": "bal"
+  },
+  {
+   "naam": "JHS Zwembaden",
+   "website": "https://www.jhszwembaden.nl/pg-26946-7-67172/pagina/home.html",
+   "logo": "/img/sponsors/jhs-zwembaden.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Jumbo Amerongen",
+   "website": "https://www.jumbo.com/winkel/amerongen/jumbo-amerongen-koenestraat",
+   "logo": "/img/sponsors/jumbo-amerongen.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Van der Vlies Tweewielers",
+   "website": "",
+   "logo": "/img/sponsors/van-der-vlies-tweewielers.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Klaassen Daalmans Regiomakelaars",
+   "website": "https://www.kd-makelaars.nl/",
+   "logo": "/img/sponsors/klaassen-daalmans-regiomakelaars.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Kreko",
+   "website": "https://www.kreko.nl/",
+   "logo": "/img/sponsors/kreko.png",
+   "achtergrond": "#fec600",
+   "groep": "overig"
+  },
+  {
+   "naam": "Liz Restobar",
+   "website": "https://www.lizrestobar.nl/",
+   "logo": "/img/sponsors/liz-restobar.png",
+   "achtergrond": "#4a4e35",
+   "groep": "bord"
+  },
+  {
+   "naam": "Makelaardij Luckerhof",
+   "website": "https://www.luckerhof.nl/",
+   "logo": "/img/sponsors/makelaardij-luckerhof.png",
+   "achtergrond": "#ffffff",
+   "groep": "overig"
+  },
+  {
+   "naam": "Opslagman.nl / Grepu Vastgoed",
+   "website": "https://www.opslagman.nl/",
+   "logo": "/img/sponsors/opslagman-nl-grepu-vastgoed.png",
+   "achtergrond": "#5181b2",
+   "groep": "bord"
+  },
+  {
+   "naam": "Paramedisch Instituut Rembrandt",
+   "website": "https://pmirembrandt.nl/",
+   "logo": "/img/sponsors/paramedisch-instituut-rembrandt.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Pardus Security",
+   "website": "https://pardussecurity.nl/",
+   "logo": "/img/sponsors/pardus-security.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Peter's Vis",
+   "website": "",
+   "logo": "/img/sponsors/peter-s-vis.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Intosign",
+   "website": "https://intosign.nl/",
+   "logo": "/img/sponsors/intosign.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Plus Leersum",
+   "website": "https://www.plus.nl/supermarkten/leersum_plus-leersum_954",
+   "logo": "/img/sponsors/plus-leersum.png",
+   "achtergrond": "#80ba27",
+   "groep": "bord"
+  },
+  {
+   "naam": "Schimmel Assurantiën",
+   "website": "https://www.schimmelassurantien.nl/",
+   "logo": "/img/sponsors/schimmel-assurantien.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Schimmel Bouwbedrijf",
+   "website": "https://www.schimmelbouw.nl/",
+   "logo": "/img/sponsors/schimmel-bouwbedrijf.png",
+   "achtergrond": "#1B2A4A",
+   "groep": "bord"
+  },
+  {
+   "naam": "Schipper Security",
+   "website": "https://schippersecurity.nl/",
+   "logo": "/img/sponsors/schipper-security.png",
+   "achtergrond": "#365fa5",
+   "groep": "bord"
+  },
+  {
+   "naam": "Slagerij Van Ginkel",
+   "website": "https://www.traiteurslagervanginkel.nl/",
+   "logo": "/img/sponsors/slagerij-van-ginkel.png",
+   "achtergrond": "#000000",
+   "groep": "bord"
+  },
+  {
+   "naam": "MTB Verhuur Amerongen",
+   "website": "https://mtbverhuuramerongen.com/",
+   "logo": "/img/sponsors/mtb-verhuur-amerongen.png",
+   "achtergrond": "#010001",
+   "groep": "bord"
+  },
+  {
+   "naam": "Vishandel J. & A.H. de Graaf",
+   "website": "",
+   "logo": "/img/sponsors/vishandel-j-a-h-de-graaf.png",
+   "achtergrond": "#ffffff",
+   "groep": "bal"
+  },
+  {
+   "naam": "Volvo Reede",
+   "website": "https://www.reede.nl/",
+   "logo": "/img/sponsors/volvo-reede.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  },
+  {
+   "naam": "Restaria de Brabander",
+   "website": "https://restariadebrabander.nl/",
+   "logo": "/img/sponsors/restaria-de-brabander.png",
+   "achtergrond": "#ffffff",
+   "groep": "overig"
+  },
+  {
+   "naam": "Skilton houtskeletbouw",
+   "website": "https://skilton.nl/",
+   "logo": "/img/sponsors/skilton-houtskeletbouw.png",
+   "achtergrond": "#ffffff",
+   "groep": "overig"
+  },
+  {
+   "naam": "Sharon van Dijk",
+   "website": "https://uitvaartzorgvandijk.nl/",
+   "logo": "/img/sponsors/sharon-van-dijk.png",
+   "achtergrond": "#ffffff",
+   "groep": "bord"
+  }
+ ],
+ "ook_dank_aan": [
+  "Jan de Greef",
+  "Teus van Spanje",
+  "Elzenaar Garagebedrijf",
+  "Munthandel G. Henzen",
+  "Mora's vloeren",
+  "Ritmeijer Schilderwerken"
+ ]
+}

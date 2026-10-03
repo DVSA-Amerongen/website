@@ -1,0 +1,200 @@
+// Gegevens uit Sportlink (Club.Dataservice) op de pagina zetten.
+// Elk element met data-sl="..." wordt hier gevuld. De gegevens lopen via /api/sportlink/ (Cloudflare Function).
+(function () {
+  var API = '/api/sportlink/';
+  var cache = {};
+
+  function haal(onderdeel, params) {
+    var qs = new URLSearchParams(params || {}).toString();
+    var url = API + onderdeel + (qs ? '?' + qs : '');
+    if (!cache[url]) {
+      cache[url] = fetch(url).then(function (r) {
+        if (!r.ok) throw new Error('Sportlink ' + r.status);
+        return r.json();
+      });
+    }
+    return cache[url];
+  }
+  function lijst(d) { return Array.isArray(d) ? d : (d && (d.items || d.data || d.wedstrijden)) || []; }
+  function v(o) { for (var i = 1; i < arguments.length; i++) { var x = o && o[arguments[i]]; if (x !== undefined && x !== null && x !== '') return x; } return ''; }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function datum(w) {
+    var d = v(w, 'wedstrijddatum', 'datumopgemaakt');
+    var t = d ? new Date(String(d).replace(/(\+\d{2})(\d{2})$/, '$1:$2')) : null;
+    if (t && !isNaN(t)) return t;
+    return null;
+  }
+  function dagTekst(t) { return t ? t.toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long' }) : ''; }
+  function kort(t) { return t ? t.toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' }) : ''; }
+  function tijd(w) { return v(w, 'aanvangstijd', 'tijd') || (datum(w) ? datum(w).toTimeString().slice(0, 5) : ''); }
+  function isDvsa(naam) { return /DVSA/i.test(naam || ''); }
+  function resultaat(w) {
+    var u = String(v(w, 'uitslag', 'uitslagregulier') || '');
+    var m = u.match(/(\d+)\s*-\s*(\d+)/);
+    if (!m) return null;
+    var thuis = +m[1], uit = +m[2];
+    var wijThuis = isDvsa(v(w, 'thuisteam'));
+    var wij = wijThuis ? thuis : uit, zij = wijThuis ? uit : thuis;
+    return { score: thuis + ' – ' + uit, r: wij > zij ? 'W' : wij < zij ? 'V' : 'G', wijThuis: wijThuis };
+  }
+  var LABEL = { W: 'Gewonnen', G: 'Gelijk', V: 'Verloren' };
+  function fout(el, tekst) {
+    el.innerHTML = '<p class="fout">' + (tekst || 'Deze gegevens konden even niet worden geladen. Bekijk ze in de Voetbal.nl-app.') + '</p>';
+  }
+  function teamFilter(naam) {
+    return function (w) { var t = v(w, 'teamnaam', 'eigenteam'); return t ? t === naam : (v(w, 'thuisteam') === naam || v(w, 'uitteam') === naam); };
+  }
+  function isJeugd(naam) { return /O\d|JO\d|MO\d|kabouter|mini/i.test(naam || ''); }
+
+  var RENDER = {
+    // Volgende wedstrijd van één team (home)
+    volgende: function (el) {
+      var team = el.dataset.team;
+      return haal('programma', { aantaldagen: 30, eigenwedstrijden: 'JA' }).then(function (d) {
+        var w = lijst(d).filter(teamFilter(team))[0];
+        if (!w) { el.querySelector('[data-veld=tijd]').textContent = '–'; el.querySelector('[data-veld=dag]').textContent = 'Geen wedstrijd gepland'; return; }
+        var t = datum(w);
+        el.querySelector('[data-veld=thuis]').textContent = v(w, 'thuisteam');
+        el.querySelector('[data-veld=uit]').textContent = v(w, 'uitteam');
+        el.querySelector('[data-veld=tijd]').textContent = tijd(w);
+        el.querySelector('[data-veld=dag]').textContent = dagTekst(t);
+        el.querySelector('[data-veld=plek]').textContent = [v(w, 'accommodatie'), v(w, 'veld') ? 'veld ' + v(w, 'veld') : ''].filter(Boolean).join(' · ');
+        var thuisDvsa = isDvsa(v(w, 'thuisteam'));
+        el.querySelector('[data-veld=embleem-thuis]').innerHTML = thuisDvsa ? '<img src="/img/dvsa-logo.png" alt="">' : esc(String(v(w, 'thuisteam')).slice(0, 3).toUpperCase());
+        el.querySelector('[data-veld=embleem-uit]').innerHTML = !thuisDvsa ? '<img src="/img/dvsa-logo.png" alt="">' : esc(String(v(w, 'uitteam')).slice(0, 3).toUpperCase());
+      });
+    },
+    'laatste-uitslag': function (el) {
+      var team = el.dataset.team;
+      return haal('uitslagen', { aantaldagen: 60, eigenwedstrijden: 'JA' }).then(function (d) {
+        var w = lijst(d).filter(teamFilter(team)).sort(function (a, b) { return (datum(b) || 0) - (datum(a) || 0); })[0];
+        if (!w) { el.innerHTML = '<p class="laden">Nog geen uitslag dit seizoen.</p>'; return; }
+        var r = resultaat(w);
+        el.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:600"><span>' + esc(v(w, 'thuisteam')) + '</span><span class="cijfer" style="font-size:34px">' + (r ? r.score : esc(v(w, 'uitslag'))) + '</span><span>' + esc(v(w, 'uitteam')) + '</span></div><span style="font-size:14px;color:var(--grijs)">' + dagTekst(datum(w)) + '</span>';
+      });
+    },
+    // Uitslagen: data-soort="jeugd" | "alles" | team
+    uitslagen: function (el) {
+      var soort = el.dataset.soort || 'alles', max = +(el.dataset.max || 50);
+      return haal('uitslagen', { aantaldagen: +(el.dataset.dagen || 7), eigenwedstrijden: 'JA' }).then(function (d) {
+        var rijen = lijst(d);
+        if (soort === 'jeugd') rijen = rijen.filter(function (w) { return isJeugd(v(w, 'teamnaam') || (isDvsa(v(w, 'thuisteam')) ? v(w, 'thuisteam') : v(w, 'uitteam'))); });
+        else if (soort !== 'alles') rijen = rijen.filter(teamFilter(soort));
+        rijen = rijen.slice(0, max);
+        if (!rijen.length) { el.innerHTML = '<p class="laden">Geen uitslagen in de afgelopen week.</p>'; return; }
+        el.innerHTML = rijen.map(function (w) {
+          var r = resultaat(w) || { score: esc(v(w, 'uitslag')), r: 'G', wijThuis: isDvsa(v(w, 'thuisteam')) };
+          var eigen = r.wijThuis ? v(w, 'thuisteam') : v(w, 'uitteam');
+          var tegen = r.wijThuis ? v(w, 'uitteam') : v(w, 'thuisteam');
+          return '<div class="rij uitslag-rij"><span class="res ' + r.r + '" title="' + LABEL[r.r] + '">' + r.r + '</span><span style="font-weight:700">' + esc(eigen) + '</span><span class="tegen">' + (r.wijThuis ? 'thuis tegen ' : 'uit bij ') + esc(tegen) + '</span><span class="cijfer">' + r.score + '</span></div>';
+        }).join('');
+      });
+    },
+    // Programma: data-thuis="ja" voor alleen thuiswedstrijden
+    programma: function (el) {
+      var p = { aantaldagen: +(el.dataset.dagen || 7), eigenwedstrijden: 'JA' };
+      if (el.dataset.thuis) { p.thuis = 'JA'; p.uit = 'NEE'; }
+      var team = el.dataset.team;
+      return haal('programma', p).then(function (d) {
+        var rijen = lijst(d);
+        if (team) rijen = rijen.filter(teamFilter(team));
+        if (!rijen.length) { el.innerHTML = '<p class="laden">Er staan deze week geen wedstrijden gepland.</p>'; return; }
+        var html = '', dag = '';
+        rijen.forEach(function (w) {
+          var t = datum(w), dt = dagTekst(t);
+          if (dt !== dag) { dag = dt; html += '<h3 style="font-size:24px;margin:22px 0 6px">' + esc(dt) + '</h3>'; }
+          var eigen = isDvsa(v(w, 'thuisteam')) ? v(w, 'thuisteam') : v(w, 'uitteam');
+          var thuis = isDvsa(v(w, 'thuisteam'));
+          html += '<div class="rij prog-rij' + (eigen === 'DVSA 1' ? ' licht' : '') + '"><span class="cijfer">' + esc(tijd(w)) + '</span><span style="font-weight:700">' + esc(eigen) + '</span><span class="tegen">' + (thuis ? '' : 'uit bij ') + esc(thuis ? v(w, 'uitteam') : v(w, 'thuisteam')) + '</span><span class="veld" style="color:var(--grijs)">' + esc(thuis ? (v(w, 'veld') ? 'Veld ' + v(w, 'veld') : '') : v(w, 'plaats', 'accommodatie')) + '</span></div>';
+        });
+        el.innerHTML = html;
+      });
+    },
+    afgelastingen: function (el) {
+      return haal('afgelastingen', { aantaldagen: 7 }).then(function (d) {
+        var rijen = lijst(d);
+        if (!rijen.length) return;
+        el.querySelector('[data-veld=titel]').textContent = rijen.length + (rijen.length === 1 ? ' wedstrijd afgelast' : ' wedstrijden afgelast');
+        el.style.borderLeftColor = 'var(--oranje)';
+        el.querySelector('[data-veld=lijst]').innerHTML = rijen.map(function (w) { return '<div style="padding:6px 0;border-top:1px solid var(--lijn-2)">' + esc(v(w, 'thuisteam')) + ' – ' + esc(v(w, 'uitteam')) + '</div>'; }).join('');
+      });
+    },
+    // Stand van een team (data-team="DVSA 1" of via teamcode)
+    stand: function (el) {
+      var naam = el.dataset.team;
+      return vindTeam(naam, el.dataset.code).then(function (team) {
+        if (!team) throw new Error('team niet gevonden');
+        return haal('team-poulelijst', { teamcode: v(team, 'teamcode'), lokaleteamcode: v(team, 'lokaleteamcode') });
+      }).then(function (d) {
+        var poules = lijst(d);
+        var poule = poules.filter(function (p) { return /regulier|competitie/i.test(v(p, 'competitiesoort', 'competitienaam')); })[0] || poules[0];
+        if (!poule) throw new Error('geen poule');
+        var label = el.parentNode.querySelector('[data-veld=klasse]');
+        if (label) label.textContent = v(poule, 'klasse', 'poulenaam', 'competitienaam');
+        return haal('poulestand', { poulecode: v(poule, 'poulecode') });
+      }).then(function (d) {
+        var rijen = lijst(d);
+        el.innerHTML = '<div class="rij stand-rij rijkop"><span>#</span><span>Team</span><span>G</span><span>DS</span><span>P</span></div>' + rijen.map(function (r) {
+          var eigen = v(r, 'eigenteam') === true || v(r, 'eigenteam') === 'true' || isDvsa(v(r, 'teamnaam'));
+          var ds = v(r, 'doelsaldo'); if (ds === '') { var dv = v(r, 'doelpuntenvoor'), dt = v(r, 'doelpuntentegen'); ds = dv !== '' ? dv - dt : ''; }
+          return '<div class="rij stand-rij' + (eigen ? ' eigen' : '') + '"><span>' + esc(v(r, 'positie', 'rang')) + '</span><span>' + esc(v(r, 'teamnaam')) + '</span><span>' + esc(v(r, 'gespeeldewedstrijden', 'gespeeld')) + '</span><span>' + (ds > 0 ? '+' : '') + esc(ds) + '</span><span style="font-weight:700">' + esc(v(r, 'punten')) + '</span></div>';
+        }).join('') + '<p style="font-size:14px;color:var(--grijs);margin:10px 0 0">G = gespeeld · DS = doelsaldo · P = punten</p>';
+      });
+    },
+    // Alle teams (Teams-pagina)
+    teams: function (el) {
+      return haal('teams').then(function (d) {
+        var teams = lijst(d).filter(function (t) { return !/futsal|zaal/i.test(v(t, 'competitiesoort', 'spelsoort')); });
+        var jeugd = [], senioren = [];
+        teams.forEach(function (t) { (isJeugd(v(t, 'teamnaam')) || /jeugd|junior|pupil|O\d/i.test(v(t, 'leeftijdscategorie')) ? jeugd : senioren).push(t); });
+        function kaart(t) {
+          var naam = v(t, 'teamnaam');
+          var url = '/teams/team/?code=' + encodeURIComponent(v(t, 'teamcode')) + '&lokaal=' + encodeURIComponent(v(t, 'lokaleteamcode')) + '&naam=' + encodeURIComponent(naam);
+          return '<a class="team-kaart" href="' + url + '"><span><b>' + esc(naam) + '</b><br><small>' + esc([v(t, 'speeldag'), v(t, 'leeftijdscategorie')].filter(Boolean).join(' · ')) + '</small></span><span class="link" style="font-size:15px">Staf, selectie en programma →</span></a>';
+        }
+        el.querySelector('[data-veld=jeugd]').innerHTML = '<a class="team-kaart" href="/lid-worden/#kabouters"><span><b>Kabouters</b><br><small>3 t/m 7 jaar · zaterdag 9:00</small></span><span class="link" style="font-size:15px">Meer over de kabouters →</span></a>' + jeugd.map(kaart).join('');
+        el.querySelector('[data-veld=senioren]').innerHTML = senioren.map(kaart).join('') + '<a class="team-kaart" href="/dc-dvsa/" style="background:var(--navy);color:#fff;border-color:var(--navy)"><span><b>DC DVSA</b><br><small style="color:#cfd5e2">Onze dartsclub, vrijdagavond</small></span><span style="color:var(--geel);font-weight:700;font-size:15px">Naar DC DVSA →</span></a>';
+        var n = el.querySelector('[data-veld=aantal]'); if (n) n.textContent = jeugd.length + ' jeugdteams, inclusief de samenwerkingsteams met HDS.';
+      });
+    },
+    // Teampagina (/teams/team/?code=..&lokaal=..&naam=..)
+    team: function (el) {
+      var q = new URLSearchParams(location.search);
+      var naam = q.get('naam') || '';
+      document.querySelectorAll('[data-veld=teamnaam]').forEach(function (x) { x.textContent = naam || 'Team'; });
+      if (naam) document.title = naam + ' – DVSA';
+      var code = q.get('code'), lokaal = q.get('lokaal');
+      var taken = [];
+      if (code) {
+        taken.push(haal('team-indeling', { teamcode: code, lokaleteamcode: lokaal }).then(function (d) {
+          var mensen = lijst(d);
+          var staf = mensen.filter(function (m) { return !/speler/i.test(v(m, 'rol', 'functie')); });
+          var spelers = mensen.filter(function (m) { return /speler/i.test(v(m, 'rol', 'functie')); });
+          function ini(n) { var p = String(n).split(/[ ,]+/).filter(function (x) { return /^[A-Z]/.test(x); }); return ((p[0] || '?')[0] + (p.length > 1 ? p[p.length - 1][0] : '')).toUpperCase(); }
+          el.querySelector('[data-veld=staf]').innerHTML = staf.length ? staf.map(function (m) { return '<div class="persoon"><span class="initialen">' + ini(v(m, 'naam')) + '</span><span><b>' + esc(v(m, 'naam')) + '</b><br><small style="color:var(--grijs)">' + esc(v(m, 'functie', 'rol')) + '</small></span></div>'; }).join('') : '<p class="laden">Geen staf bekend.</p>';
+          el.querySelector('[data-veld=selectie]').innerHTML = spelers.length ? '<div class="raster r2" style="gap:0 16px">' + spelers.map(function (m) { return '<span style="padding:9px 0;border-bottom:1px solid var(--lijn-2)">' + esc(v(m, 'naam')) + '</span>'; }).join('') + '</div>' : '<p class="laden">Geen spelers bekend.</p>';
+          var a = el.querySelector('[data-veld=aantal]'); if (a) a.textContent = spelers.length + ' spelers';
+        }).catch(function () { fout(el.querySelector('[data-veld=staf]')); }));
+      }
+      return Promise.all(taken);
+    }
+  };
+
+  function vindTeam(naam, code) {
+    return haal('teams').then(function (d) {
+      return lijst(d).filter(function (t) { return code ? String(v(t, 'teamcode')) === String(code) : v(t, 'teamnaam') === naam; })[0];
+    });
+  }
+
+  document.querySelectorAll('[data-sl]').forEach(function (el) {
+    var f = RENDER[el.dataset.sl];
+    if (!f) return;
+    // teampagina: team uit de adresbalk doorgeven aan onderliggende blokken
+    var q = new URLSearchParams(location.search);
+    if (el.dataset.teamUitUrl !== undefined && q.get('naam')) { el.dataset.team = q.get('naam'); if (el.dataset.sl === 'uitslagen') el.dataset.soort = q.get('naam'); if (q.get('code')) el.dataset.code = q.get('code'); }
+    Promise.resolve().then(function () { return f(el); }).catch(function () {
+      if (el.dataset.sl === 'afgelastingen') return;
+      fout(el.dataset.sl === 'volgende' || el.dataset.sl === 'teams' ? el.querySelector('[data-veld=foutplek]') || el : el);
+    });
+  });
+})();
