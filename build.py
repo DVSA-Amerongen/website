@@ -397,7 +397,7 @@ def teams():
 <div class="stapel">
 <div class="kaart"><h2 style="font-size:28px;margin-bottom:6px">Staf</h2><div data-veld="staf"><p class="laden">Laden…</p></div></div>
 <div class="kaart"><div style="display:flex;justify-content:space-between;align-items:baseline"><h2 style="font-size:28px">Selectie</h2><span data-veld="aantal" style="color:var(--grijs)"></span></div><div data-veld="selectie" style="margin-top:8px"><p class="laden">Laden…</p></div>
-<p style="font-size:14px;color:var(--grijs);margin:12px 0 0">Wie in Sportlink heeft gekozen om afgeschermd te blijven, staat hier niet.</p></div>
+</div>
 </div>
 </div></section>'''.format(sl=SL)
     schrijf('/teams/team/', layout('Team – DVSA', inhoud, 'Teams', scripts=('site', 'sportlink')))

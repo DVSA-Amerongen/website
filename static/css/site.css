@@ -136,7 +136,7 @@ h1,h2,h3{font-family:var(--cond);font-weight:800;text-transform:uppercase;line-h
 .wedstrijd-band{background:var(--blauw);color:#fff;padding:40px 0 64px}
 .volgende{background:rgba(255,255,255,.08);border-radius:var(--r);padding:36px 44px;display:flex;flex-direction:column;gap:26px}
 .teams-vs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,1fr);align-items:center;gap:20px;text-align:center}
-.teams-vs .team b{font-family:var(--cond);font-weight:800;font-size:clamp(26px,4vw,40px);display:block;margin-top:12px;overflow-wrap:anywhere;line-height:1.05}
+.teams-vs .team b{font-family:var(--cond);font-weight:800;font-size:clamp(22px,2.6vw,36px);display:block;margin-top:12px;overflow-wrap:break-word;hyphens:auto;line-height:1.05}
 .embleem{width:clamp(64px,8vw,96px);height:clamp(64px,8vw,96px);border-radius:50%;background:#fff;color:var(--navy);display:grid;place-items:center;margin:0 auto;font-family:var(--cond);font-weight:800}
 .embleem img{width:84%;height:84%;object-fit:contain}
 .tijd{font-family:var(--cond);font-weight:800;font-size:clamp(44px,6vw,64px);line-height:1}
