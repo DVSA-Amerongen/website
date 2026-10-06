@@ -585,7 +585,7 @@ def redirects():
     vast = [('/adres-route', '/contact/'), ('/club_aanmelden', '/lid-worden/'), ('/lidmaatschap-contributie', '/lid-worden/'),
             ('/programma', '/wedstrijden/'), ('/uitslagen', '/wedstrijden/#uitslagen'), ('/standen', '/nieuws/'),
             ('/vereniging', '/club/'), ('/accomodatie', '/club/'), ('/bestuursvergaderingen', '/club/'), ('/verantwoording-leden-maart-mei', '/club/'),
-            ('/bestuursvergadering-9-04-2025', '/club/'), ('/samenwerking-rac-fc-utrecht', '/club/'), ('/demo-max', '/'), ('/test-pagina', '/nieuws/'),
+            ('/bestuursvergadering-9-04-2025', '/club/'), ('/samenwerking-rac-fc-utrecht', '/club/'), ('/demo-max', '/'), ('/tifo-dvsa-supportersclub', '/club/'), ('/test-pagina', '/nieuws/'),
             ('/verslagen-dvsa-1', '/nieuws/'), ('/verslagen-jo-13-1-jm', '/nieuws/'), ('/minis-kabouters-ve-zaterdag-gemengd', '/lid-worden/#kabouters')]
     for p in PAGINAS:
         if p.get('oud_adres'):
