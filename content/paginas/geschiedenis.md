@@ -8,4 +8,4 @@ concept: true
 ---
 DVSA (Door Vriendschap Sterk Amerongen) is opgericht op 27 juli 1945.
 
-[Tekst en de PDF met de clubgeschiedenis (1945 tot 2008, uit het jubileumboek) overzetten. De zin over seizoen 2017-2018 bijwerken.]
+Wil je meer weten over de geschiedenis van DVSA? Lees dan [de clubgeschiedenis van 1945 tot 2008](https://dvsa.sportlink-clubsites.nl/wp-content/uploads/dvsa/2017/08/2016-12-14-geschiedenis.pdf), uit het jubileumboek bij 60 jaar DVSA.

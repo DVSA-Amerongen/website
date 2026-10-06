@@ -558,8 +558,10 @@ def vrijwilligers():
         ('1', 'Open de Voetbal.nl-app', 'Alle vrijwilligerstaken van DVSA staan in de app, met datum, tijd en hoeveel punten ze opleveren.'),
         ('2', 'Kies een taak die past', 'Plan zelf in wanneer het jou uitkomt. Wie op tijd plant, heeft de meeste keus.'),
         ('3', 'Kom helpen en verdien je punten', 'Elk uur telt als één punt. Bij 10 punten zit je seizoen erop.')]))
-    docs = ''.join('<div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--lijn-2);font-weight:600"><span>%s</span><span style="font-size:12px;background:var(--lichtblauw);color:var(--blauw);padding:3px 8px;border-radius:6px">PDF volgt</span></div>' % t for t in
-                   ['Handleiding vrijwilligerstaken in de app', 'Beschrijving kantinedienst', 'Kleedkamers en toiletten schoonmaken', 'Gebruiksregels kunstgras'])
+    U = 'https://dvsa.sportlink-clubsites.nl/wp-content/uploads/dvsa/'
+    docs = ''.join('<a href="%s" style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--lijn-2);font-weight:600"><span>%s</span><span style="font-size:12px;background:var(--lichtblauw);color:var(--blauw);padding:3px 8px;border-radius:6px;align-self:center">PDF</span></a>' % (U + f, t) for t, f in
+                   [('Vrijwilligerstaken: zo werkt het', 'vrijwilligerstaken.pdf'), ('Handleiding vrijwilligerstaken in de app', 'handleiding-vrijwilligerstaken.pdf'),
+                    ('Beschrijving kantinedienst', 'beschrijving-kantinedienst.pdf'), ('Kleedkamers en toiletten schoonmaken', 'kleedkamers-schoonmaken-instructie.pdf')])
     inhoud = hero('Vrijwilligers', 'DVSA draait helemaal op vrijwilligers: achter de bar, langs de lijn en in de kleedkamers. Daarom helpt elk lid een paar uur per jaar mee.')
     inhoud += '''<section class="sectie"><div class="wrap raster r3">{blokken}</div></section>
 <section class="sectie"><div class="wrap raster zij">
