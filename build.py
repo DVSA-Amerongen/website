@@ -424,7 +424,7 @@ def teams():
     schrijf('/teams/', layout('Teams – DVSA', inhoud, 'Teams', scripts=('site', 'sportlink')))
     # teampagina (één pagina, gevuld via de adresbalk)
     inhoud = '''<section class="hero"><div class="wrap"><div><a class="terug" href="/teams/">← Alle teams</a><h1 data-veld="teamnaam">Team</h1><p>Staf, selectie, programma, uitslagen en stand. Alles komt automatisch uit Sportlink.</p></div></div></section>
-<section class="sectie" data-veld="teamfoto-sectie" hidden style="padding-top:32px"><div class="wrap"><img data-veld="teamfoto" alt="" style="width:100%;max-height:560px;object-fit:cover;border-radius:20px"></div></section>
+<section class="sectie" data-veld="teamfoto-sectie" hidden style="padding-top:32px"><div class="wrap"><img data-veld="teamfoto" alt="" style="width:100%;max-height:620px;object-fit:cover;object-position:center 40%;border-radius:20px"></div></section>
 <section class="sectie" data-sl="team"><div class="wrap raster zij">
 <div class="stapel">
 <div class="kaart"><div class="sectie-kop" style="margin-bottom:0"><h2 style="font-size:28px">Programma</h2>{sl}</div><div data-sl="programma" data-dagen="28" data-team-uit-url><p class="laden">Laden…</p></div></div>
