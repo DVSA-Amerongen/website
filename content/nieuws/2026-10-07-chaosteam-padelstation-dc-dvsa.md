@@ -57,8 +57,6 @@ Het zweet liep bij iedereen van het hoofd. Erwin vatte de situatie treffend same
 
 “Een sauna is minder warm.”
 
-Gelukkig konden we tussendoor met een schuin oog nog even naar de padelbanen kijken. Want ja, er was natuurlijk ook vrouwelijk schoon aanwezig. En aangezien de dartprestaties niet altijd even spectaculair waren, moest er ergens anders entertainment vandaan komen.
-
 ## 🎴 Round Robin
 
 De kaarten werden geschud en daarmee werd de volgorde bepaald:
