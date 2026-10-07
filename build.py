@@ -246,7 +246,7 @@ def kantine_kaart():
 
 def nieuws_kaart(n, h='h3'):
     cat = slugify(n.get('categorie', ''))
-    foto = '<div class="nieuws-foto" style="background-image:url(%s)"></div>' % e(n['foto']) if n.get('foto') else '<div class="nieuws-foto"><img src="/img/dvsa-logo.png" alt=""></div>'
+    foto = '<div class="nieuws-foto" style="background-image:url(%s);background-position:center 30%%"></div>' % e(n['foto']) if n.get('foto') else '<div class="nieuws-foto"><img src="/img/dvsa-logo.png" alt=""></div>'
     return '''<a class="nieuws-kaart" href="{u}" data-cat="{c}">{f}<div class="nieuws-body"><div class="meta"><span class="cat {cs}">{c}</span><span>{d}</span></div><{h}>{t}</{h}><p>{i}</p></div></a>'''.format(
         u=n['url'], c=e(n.get('categorie', '')), cs=cat, f=foto, d=datum_nl(n['date']), t=e(n['titel']), i=e(n.get('intro', '')), h=h)
 
@@ -364,7 +364,7 @@ def nieuws_paginas():
             th, sc, ui = [x.strip() for x in n['uitslag'].split('|')]
             score = '<div class="scorebalk" style="margin-top:28px"><div style="text-align:right"><b>%s</b></div><span class="score">%s</span><div><b>%s</b><div style="font-size:14px;opacity:.85">%s</div></div></div>' % (e(th), e(sc), e(ui), e(n.get('doelpunten', '')))
         meer = ''.join(['<a href="%s" style="display:block;padding:12px 0;border-top:1px solid var(--lijn-2)"><span style="font-size:13px;color:var(--grijs);font-weight:600">%s · %s</span><br><b style="font-family:var(--cond);font-size:21px">%s</b></a>' % (x['url'], e(x['categorie']), datum_nl(x['date']), e(x['titel'])) for x in NIEUWS if x is not n][:3])
-        foto = '<img src="%s" alt="" style="width:100%%;border-radius:20px;margin-bottom:24px">' % e(n['foto']) if n.get('foto') else ''
+        foto = '<img src="%s" alt="" style="width:100%%;max-height:640px;object-fit:cover;object-position:center 30%%;border-radius:20px;margin-bottom:24px">' % e(n['foto']) if n.get('foto') else ''
         concept = '<div class="concept">Dit bericht wordt nog overgezet van de oude site.</div>' if n['concept'] else ''
         inhoud = '''<section class="sectie" style="padding-top:40px"><div class="wrap">
 <div class="meta" style="font-size:15px"><a class="link" href="/nieuws/">← Alle nieuws</a><span class="cat {cs}">{c}</span><span>{d}</span></div>
