@@ -7,6 +7,15 @@
     {
       "team": "DVSA O8-2JM",
       "foto": "/img/teams/dvsa-o8-2jm.jpg"
+    },
+    {
+      "team": "DVSA MO13-1",
+      "foto": "/img/teams/dvsa-mo13-1.jpg",
+      "fotos": [
+        "/img/teams/dvsa-mo13-1-teambespreking.jpg",
+        "/img/teams/dvsa-mo13-1-peace.jpg",
+        "/img/teams/dvsa-mo13-1-speelster.jpg"
+      ]
     }
   ]
 }

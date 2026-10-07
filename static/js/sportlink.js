@@ -191,6 +191,20 @@
         var img = document.querySelector('[data-veld=teamfoto]');
         img.src = f.foto; img.alt = 'Teamfoto ' + naam;
         document.querySelector('[data-veld=teamfoto-sectie]').hidden = false;
+        var fotos = f.fotos || [];
+        if (fotos.length) {
+          var baan = document.querySelector('[data-veld=fotoshow-baan]'), st = document.querySelector('[data-veld=fotoshow-stippen]'), nu = 0, timer;
+          baan.innerHTML = fotos.map(function (src, i) { return '<img src="' + esc(src) + '" alt="Foto ' + (i + 1) + ' van ' + esc(naam) + '" loading="lazy"' + (i ? '' : ' class="actief"') + '>'; }).join('');
+          st.innerHTML = fotos.map(function (_, i) { return '<button aria-label="Foto ' + (i + 1) + '"' + (i ? '' : ' aria-current="true"') + '><span></span></button>'; }).join('');
+          var imgs = baan.querySelectorAll('img'), knoppen = st.querySelectorAll('button');
+          function toon(i) { nu = (i + imgs.length) % imgs.length; imgs.forEach(function (x, k) { x.classList.toggle('actief', k === nu); }); knoppen.forEach(function (x, k) { x.setAttribute('aria-current', k === nu ? 'true' : 'false'); }); }
+          var show = document.querySelector('[data-veld=fotoshow]');
+          show.querySelector('.vorige').onclick = function () { clearInterval(timer); toon(nu - 1); };
+          show.querySelector('.volgende').onclick = function () { clearInterval(timer); toon(nu + 1); };
+          knoppen.forEach(function (b, k) { b.onclick = function () { clearInterval(timer); toon(k); }; });
+          if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) timer = setInterval(function () { toon(nu + 1); }, 5000);
+          document.querySelector('[data-veld=fotos-sectie]').hidden = false;
+        }
       }).catch(function () {});
       var taken = [];
       if (code) {

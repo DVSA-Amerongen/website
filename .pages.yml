@@ -177,3 +177,10 @@ content:
             options:
               input: static/img/teams
               output: /img/teams
+          - name: fotos
+            label: Extra foto's (slideshow)
+            type: image
+            list: true
+            options:
+              input: static/img/teams
+              output: /img/teams

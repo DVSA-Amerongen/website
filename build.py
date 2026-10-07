@@ -426,6 +426,11 @@ def teams():
     # teampagina (één pagina, gevuld via de adresbalk)
     inhoud = '''<section class="hero"><div class="wrap"><div><a class="terug" href="/teams/">← Alle teams</a><h1 data-veld="teamnaam">Team</h1><p>Staf, selectie, programma, uitslagen en stand. Alles komt automatisch uit Sportlink.</p></div></div></section>
 <section class="sectie" data-veld="teamfoto-sectie" hidden style="padding-top:32px"><div class="wrap"><img data-veld="teamfoto" alt="" style="width:100%;max-height:620px;object-fit:cover;object-position:center 40%;border-radius:20px"></div></section>
+<section class="sectie" data-veld="fotos-sectie" hidden><div class="wrap"><div class="sectie-kop"><h2>Foto's</h2></div>
+<div class="fotoshow" data-veld="fotoshow"><div class="fotoshow-baan" data-veld="fotoshow-baan"></div>
+<button class="car-knop vorige" aria-label="Vorige foto"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+<button class="car-knop volgende" aria-label="Volgende foto"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+<div class="stippen" data-veld="fotoshow-stippen"></div></div></div></section>
 <section class="sectie" data-sl="team"><div class="wrap raster zij">
 <div class="stapel">
 <div class="kaart"><div class="sectie-kop" style="margin-bottom:0"><h2 style="font-size:28px">Programma</h2>{sl}</div><div data-sl="programma" data-dagen="28" data-team-uit-url><p class="laden">Laden…</p></div></div>
