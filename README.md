@@ -23,6 +23,7 @@ gewoon op github.com openen, op het potloodje klikken, aanpassen en onderaan op
 | Sponsor toevoegen of verwijderen | `content/sponsors.json`, logo in `static/img/sponsors/` |
 | Club-pagina's (gedragscode, geschiedenis, ...) | `content/paginas/` |
 | Foto's bij nieuws | `static/img/nieuws/` |
+| Wedstrijdverslag op de teampagina | Zet `team: DVSA JO10-1` (naam zoals in Sportlink) bovenin het bericht. Met een ingevulde `uitslag:` gaat het vanzelf |
 
 Programma, uitslagen, standen, teams, staf en selecties komen automatisch uit Sportlink.
 Die hoef je hier nooit bij te werken.

@@ -435,6 +435,7 @@ def teams():
 <div class="stapel">
 <div class="kaart"><div class="sectie-kop" style="margin-bottom:0"><h2 style="font-size:28px">Programma</h2>{sl}</div><div data-sl="programma" data-dagen="28" data-team-uit-url><p class="laden">Laden…</p></div></div>
 <div class="kaart"><h2 style="font-size:28px;margin-bottom:6px">Uitslagen</h2><div data-sl="uitslagen" data-dagen="60" data-team-uit-url><p class="laden">Laden…</p></div></div>
+<div class="kaart"><h2 style="font-size:28px;margin-bottom:6px">Wedstrijdverslagen</h2><div data-veld="teamverslagen"><p class="laden">Laden…</p></div></div>
 <div class="kaart"><div style="display:flex;justify-content:space-between;align-items:baseline"><h2 style="font-size:28px">Stand</h2><span data-veld="klasse" style="color:var(--grijs);font-size:15px"></span></div><div data-sl="stand" data-team-uit-url><p class="laden">Laden…</p></div></div>
 </div>
 <div class="stapel">
@@ -656,6 +657,16 @@ def main():
             th, sc, ui = [x.strip() for x in n['uitslag'].split('|')]
             verslagen.append({'thuis': th, 'uit': ui, 'datum': str(n['date']), 'url': n['url'], 'titel': n['titel'], 'categorie': n.get('categorie', '')})
     json.dump(verslagen, open(os.path.join(DIST, 'data', 'verslagen.json'), 'w', encoding='utf-8'), ensure_ascii=False)
+    # verslagen per team: via 'team:' in het bericht of de teamnamen in 'uitslag:'
+    teamverslagen = []
+    for n in NIEUWS:
+        tms = [t.strip() for t in str(n.get('team') or '').split(',') if t.strip()]
+        if n.get('uitslag') and n['uitslag'].count('|') == 2:
+            th, sc, ui = [x.strip() for x in n['uitslag'].split('|')]
+            tms += [th, ui]
+        if tms:
+            teamverslagen.append({'teams': tms, 'datum': datum_nl(n['date']), 'url': n['url'], 'titel': n['titel'], 'intro': n.get('intro', '')})
+    json.dump(teamverslagen, open(os.path.join(DIST, 'data', 'teamverslagen.json'), 'w', encoding='utf-8'), ensure_ascii=False)
     home(); nieuws_paginas(); wedstrijden(); teams(); dc_dvsa(); club(); sponsoren(); contact(); lid_worden(); vrijwilligers(); niet_gevonden(); redirects()
     n = sum(1 for _, _, fs in os.walk(DIST) for f in fs if f.endswith('.html'))
     print('Klaar: %d pagina\'s in dist/' % n)

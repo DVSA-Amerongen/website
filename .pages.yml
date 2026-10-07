@@ -47,6 +47,10 @@ content:
         options:
           input: static/img/nieuws
           output: /img/nieuws
+      - name: team
+        label: Team (optioneel)
+        description: "Bij een wedstrijdverslag: de teamnaam zoals in Sportlink, bijvoorbeeld DVSA JO10-1. Het verslag komt dan ook op die teampagina. Staat de uitslag ingevuld, dan gaat dat vanzelf."
+        type: string
       - name: uitslag
         label: Uitslag (optioneel)
         description: "Alleen bij een wedstrijdverslag. Schrijf het zo: Thuisteam | 2 – 1 | Uitteam"

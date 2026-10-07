@@ -206,6 +206,13 @@
           document.querySelector('[data-veld=fotos-sectie]').hidden = false;
         }
       }).catch(function () {});
+      fetch('/data/teamverslagen.json').then(function (r) { return r.json(); }).then(function (d) {
+        var nn = naam.toLowerCase().replace(/\s+/g, ' ').trim();
+        var mijn = (d || []).filter(function (x) { return (x.teams || []).some(function (t) { return t.toLowerCase().replace(/\s+/g, ' ').trim() === nn; }); });
+        el.querySelector('[data-veld=teamverslagen]').innerHTML = mijn.length ? mijn.map(function (x) {
+          return '<a href="' + esc(x.url) + '" style="display:block;padding:12px 0;border-top:1px solid var(--lijn-2)"><span style="font-size:13px;color:var(--grijs);font-weight:600">' + esc(x.datum) + '</span><br><b style="font-family:var(--cond);font-size:20px">' + esc(x.titel) + '</b>' + (x.intro ? '<br><small style="color:var(--tekst-2);font-size:15px">' + esc(x.intro) + '</small>' : '') + '<br><span class="link" style="font-size:15px">Lees het verslag →</span></a>';
+        }).join('') : '<p class="laden">Nog geen wedstrijdverslagen van dit team.</p>';
+      }).catch(function () { el.querySelector('[data-veld=teamverslagen]').innerHTML = '<p class="laden">Nog geen wedstrijdverslagen van dit team.</p>'; });
       var taken = [];
       if (code) {
         taken.push(haal('team-indeling', { teamcode: code, lokaleteamcode: lokaal }).then(function (d) {
