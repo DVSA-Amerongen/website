@@ -155,3 +155,25 @@ content:
       - name: body
         label: Tekst
         type: text
+
+  - name: teamfotos
+    label: Teamfoto's
+    type: file
+    path: content/teamfotos.json
+    format: json
+    fields:
+      - name: teamfotos
+        label: Teamfoto's
+        type: object
+        list: true
+        fields:
+          - name: team
+            label: Teamnaam precies zoals in Sportlink (bijv. DVSA O8-1JM)
+            type: string
+            required: true
+          - name: foto
+            label: Foto
+            type: image
+            options:
+              input: static/img/teams
+              output: /img/teams

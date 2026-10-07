@@ -170,6 +170,13 @@
       document.querySelectorAll('[data-veld=teamnaam]').forEach(function (x) { x.textContent = naam || 'Team'; });
       if (naam) document.title = naam + ' – DVSA';
       var code = q.get('code'), lokaal = q.get('lokaal');
+      fetch('/data/teamfotos.json').then(function (r) { return r.json(); }).then(function (d) {
+        var f = (d.teamfotos || []).filter(function (t) { return t.team && naam && t.team.toLowerCase().replace(/\s+/g, ' ') === naam.toLowerCase().replace(/\s+/g, ' '); })[0];
+        if (!f || !f.foto) return;
+        var img = document.querySelector('[data-veld=teamfoto]');
+        img.src = f.foto; img.alt = 'Teamfoto ' + naam;
+        document.querySelector('[data-veld=teamfoto-sectie]').hidden = false;
+      }).catch(function () {});
       var taken = [];
       if (code) {
         taken.push(haal('team-indeling', { teamcode: code, lokaleteamcode: lokaal }).then(function (d) {

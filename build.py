@@ -424,6 +424,7 @@ def teams():
     schrijf('/teams/', layout('Teams – DVSA', inhoud, 'Teams', scripts=('site', 'sportlink')))
     # teampagina (één pagina, gevuld via de adresbalk)
     inhoud = '''<section class="hero"><div class="wrap"><div><a class="terug" href="/teams/">← Alle teams</a><h1 data-veld="teamnaam">Team</h1><p>Staf, selectie, programma, uitslagen en stand. Alles komt automatisch uit Sportlink.</p></div></div></section>
+<section class="sectie" data-veld="teamfoto-sectie" hidden style="padding-top:32px"><div class="wrap"><img data-veld="teamfoto" alt="" style="width:100%;max-height:560px;object-fit:cover;border-radius:20px"></div></section>
 <section class="sectie" data-sl="team"><div class="wrap raster zij">
 <div class="stapel">
 <div class="kaart"><div class="sectie-kop" style="margin-bottom:0"><h2 style="font-size:28px">Programma</h2>{sl}</div><div data-sl="programma" data-dagen="28" data-team-uit-url><p class="laden">Laden…</p></div></div>
@@ -641,6 +642,8 @@ def main():
     if os.path.exists(DIST):
         shutil.rmtree(DIST)
     shutil.copytree(os.path.join(ROOT, 'static'), DIST)
+    os.makedirs(os.path.join(DIST, 'data'), exist_ok=True)
+    shutil.copy(os.path.join(CONTENT, 'teamfotos.json'), os.path.join(DIST, 'data', 'teamfotos.json'))
     home(); nieuws_paginas(); wedstrijden(); teams(); dc_dvsa(); club(); sponsoren(); contact(); lid_worden(); vrijwilligers(); niet_gevonden(); redirects()
     n = sum(1 for _, _, fs in os.walk(DIST) for f in fs if f.endswith('.html'))
     print('Klaar: %d pagina\'s in dist/' % n)
