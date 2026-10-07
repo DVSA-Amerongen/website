@@ -62,5 +62,8 @@
         teller.textContent = n === 1 ? '1 bericht' : n + ' berichten';
       });
     });
+    // /nieuws/#dvsa-1 opent direct met dat filter
+    var h = location.hash.slice(1);
+    if (h) filter.querySelectorAll('button').forEach(function (b) { if (b.dataset.filter.toLowerCase().replace(/[^a-z0-9]+/g, '-') === h) b.click(); });
   }
 })();

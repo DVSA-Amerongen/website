@@ -48,6 +48,17 @@
   function uniekeTeams(d) { var gezien = {}; return lijst(d).filter(function (t) { var k = String(v(t, 'teamcode')); if (gezien[k]) return false; gezien[k] = 1; return true; }); }
   function persoonNaam(m) { var n = [v(m, 'voornaam'), v(m, 'tussenvoegsel'), v(m, 'achternaam')].filter(Boolean).join(' '); return n || v(m, 'naam'); }
   function afgeschermd(m) { return /afgeschermd/i.test(v(m, 'naam') + v(m, 'voornaam')); }
+  var verslagenP = null;
+  function verslagen() { if (!verslagenP) verslagenP = fetch('/data/verslagen.json').then(function (r) { return r.json(); }).catch(function () { return []; }); return verslagenP; }
+  function norm(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
+  function vindVerslag(lijstV, w) {
+    var t = norm(v(w, 'thuisteam')), u = norm(v(w, 'uitteam')), d = datum(w);
+    return lijstV.filter(function (x) {
+      if (norm(x.thuis) !== t || norm(x.uit) !== u) return false;
+      if (!d) return true;
+      var dv = new Date(x.datum); return Math.abs(dv - d) < 5 * 864e5;
+    })[0];
+  }
   function isJeugd(naam) { return /O\d|JO\d|MO\d|kabouter|mini/i.test(naam || ''); }
 
   var RENDER = {
@@ -70,17 +81,21 @@
     },
     'laatste-uitslag': function (el) {
       var team = el.dataset.team;
-      return haal('uitslagen', { aantaldagen: 60, eigenwedstrijden: 'JA' }).then(function (d) {
+      return Promise.all([haal('uitslagen', { aantaldagen: 60, eigenwedstrijden: 'JA' }), verslagen()]).then(function (res) {
+        var d = res[0], vl = res[1];
         var w = lijst(d).filter(teamFilter(team)).sort(function (a, b) { return (datum(b) || 0) - (datum(a) || 0); })[0];
         if (!w) { el.innerHTML = '<p class="laden">Nog geen uitslag dit seizoen.</p>'; return; }
         var r = resultaat(w);
         el.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:600"><span>' + esc(v(w, 'thuisteam')) + '</span><span class="cijfer" style="font-size:34px">' + (r ? r.score : esc(v(w, 'uitslag'))) + '</span><span>' + esc(v(w, 'uitteam')) + '</span></div><span style="font-size:14px;color:var(--grijs)">' + dagTekst(datum(w)) + '</span>';
+        var vs = vindVerslag(vl, w);
+        if (vs) el.innerHTML += '<a class="btn btn-blauw" href="' + vs.url + '" style="margin-top:12px;padding:10px 18px;font-size:15px;width:100%">Lees het wedstrijdverslag →</a>';
       });
     },
     // Uitslagen: data-soort="jeugd" | "alles" | team
     uitslagen: function (el) {
       var soort = el.dataset.soort || 'alles', max = +(el.dataset.max || 50);
-      return haal('uitslagen', { aantaldagen: +(el.dataset.dagen || 7), eigenwedstrijden: 'JA' }).then(function (d) {
+      return Promise.all([haal('uitslagen', { aantaldagen: +(el.dataset.dagen || 7), eigenwedstrijden: 'JA' }), verslagen()]).then(function (res) {
+        var d = res[0], vl = res[1];
         var rijen = lijst(d);
         if (soort === 'jeugd') rijen = rijen.filter(function (w) { return isJeugd(v(w, 'teamnaam') || (isDvsa(v(w, 'thuisteam')) ? v(w, 'thuisteam') : v(w, 'uitteam'))); });
         else if (soort !== 'alles') rijen = rijen.filter(teamFilter(soort));
@@ -90,7 +105,7 @@
           var r = resultaat(w) || { score: esc(v(w, 'uitslag')), r: 'G', wijThuis: isDvsa(v(w, 'thuisteam')) };
           var eigen = r.wijThuis ? v(w, 'thuisteam') : v(w, 'uitteam');
           var tegen = r.wijThuis ? v(w, 'uitteam') : v(w, 'thuisteam');
-          return '<div class="rij uitslag-rij"><span class="res ' + r.r + '" title="' + LABEL[r.r] + '">' + r.r + '</span><span style="font-weight:700">' + esc(eigen) + '</span><span class="tegen">' + (r.wijThuis ? 'thuis tegen ' : 'uit bij ') + esc(tegen) + '</span><span class="cijfer">' + r.score + '</span></div>';
+          return '<div class="rij uitslag-rij"><span class="res ' + r.r + '" title="' + LABEL[r.r] + '">' + r.r + '</span><span style="font-weight:700">' + esc(eigen) + '</span><span class="tegen">' + (r.wijThuis ? 'thuis tegen ' : 'uit bij ') + esc(tegen) + (vindVerslag(vl, w) ? ' · <a class="link" href="' + vindVerslag(vl, w).url + '">verslag →</a>' : '') + '</span><span class="cijfer">' + r.score + '</span></div>';
         }).join('');
       });
     },

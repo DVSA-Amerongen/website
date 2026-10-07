@@ -299,7 +299,7 @@ def home():
 <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn btn-wit" href="/wedstrijden/">Volledig programma</a><a class="btn btn-rand" href="/teams/">Alle teams</a></div>
 </div>
 <div class="stapel">
-<div class="kaart"><span class="label">Laatste uitslag · {team}</span><div data-sl="laatste-uitslag" data-team="{team}" style="margin-top:12px;color:var(--tekst)"><p class="laden">Laden…</p></div></div>
+<div class="kaart"><span class="label">Laatste uitslag · {team}</span><div data-sl="laatste-uitslag" data-team="{team}" style="margin-top:12px;color:var(--tekst)"><p class="laden">Laden…</p></div><a class="link" href="/nieuws/#dvsa-1" style="display:inline-block;margin-top:10px;font-size:15px">Alle wedstrijdverslagen {team} →</a></div>
 <div class="kaart" style="color:var(--tekst)"><span class="label">Snel naar</span><div style="margin-top:6px">
 <a class="lijst-link" href="/wedstrijden/"><span>Programma deze week</span><span>→</span></a>
 <a class="lijst-link" href="/wedstrijden/#programma"><span>Afgelastingen</span><span>→</span></a>
@@ -645,6 +645,12 @@ def main():
     shutil.copytree(os.path.join(ROOT, 'static'), DIST)
     os.makedirs(os.path.join(DIST, 'data'), exist_ok=True)
     shutil.copy(os.path.join(CONTENT, 'teamfotos.json'), os.path.join(DIST, 'data', 'teamfotos.json'))
+    verslagen = []
+    for n in NIEUWS:
+        if n.get('uitslag') and n['uitslag'].count('|') == 2:
+            th, sc, ui = [x.strip() for x in n['uitslag'].split('|')]
+            verslagen.append({'thuis': th, 'uit': ui, 'datum': str(n['date']), 'url': n['url'], 'titel': n['titel'], 'categorie': n.get('categorie', '')})
+    json.dump(verslagen, open(os.path.join(DIST, 'data', 'verslagen.json'), 'w', encoding='utf-8'), ensure_ascii=False)
     home(); nieuws_paginas(); wedstrijden(); teams(); dc_dvsa(); club(); sponsoren(); contact(); lid_worden(); vrijwilligers(); niet_gevonden(); redirects()
     n = sum(1 for _, _, fs in os.walk(DIST) for f in fs if f.endswith('.html'))
     print('Klaar: %d pagina\'s in dist/' % n)

@@ -245,3 +245,5 @@ a.sp-naam{color:var(--blauw);text-decoration:underline;text-underline-offset:3px
 @media (max-width:760px){.voet-raster{grid-template-columns:1fr 1fr}}
 body{display:flex;flex-direction:column;min-height:100vh}
 main{flex:1}
+
+[hidden]{display:none!important}
