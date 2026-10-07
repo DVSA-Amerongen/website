@@ -45,7 +45,7 @@
     return function (w) { var t = v(w, 'teamnaam'); return t ? t === naam : (v(w, 'thuisteam') === naam || v(w, 'uitteam') === naam); };
   }
   function hoofdletter(s) { s = String(s || ''); return s.charAt(0).toUpperCase() + s.slice(1); }
-  function uniekeTeams(d) { var gezien = {}; return lijst(d).filter(function (t) { var k = v(t, 'teamcode') + '/' + v(t, 'lokaleteamcode'); if (gezien[k]) return false; gezien[k] = 1; return true; }); }
+  function uniekeTeams(d) { var gezien = {}; return lijst(d).filter(function (t) { var k = String(v(t, 'teamcode')); if (gezien[k]) return false; gezien[k] = 1; return true; }); }
   function persoonNaam(m) { var n = [v(m, 'voornaam'), v(m, 'tussenvoegsel'), v(m, 'achternaam')].filter(Boolean).join(' '); return n || v(m, 'naam'); }
   function afgeschermd(m) { return /afgeschermd/i.test(v(m, 'naam') + v(m, 'voornaam')); }
   function isJeugd(naam) { return /O\d|JO\d|MO\d|kabouter|mini/i.test(naam || ''); }
@@ -146,7 +146,11 @@
     // Alle teams (Teams-pagina)
     teams: function (el) {
       return haal('teams').then(function (d) {
-        var teams = uniekeTeams(d).filter(function (t) { return !/futsal|zaal/i.test(v(t, 'spelsoort')) && !/kabouter|mini/i.test(v(t, 'teamnaam')); });
+        var teams = uniekeTeams(d).filter(function (t) { return v(t, 'teamsoort') === 'bond' && !/futsal|zaal/i.test(v(t, 'spelsoort')); });
+        // van jong naar oud: leeftijd uit de teamnaam (O8, MO13, O19), senioren daarna, 35+/45+ als laatste
+        function leeftijd(t) { var n = v(t, 'teamnaam'), m = n.match(/M?O(\d+)/); if (m && isJeugd(n)) return +m[1]; m = n.match(/(\d+)\+/); return m ? 100 + +m[1] : 50; }
+        function volgnr(t) { var m = v(t, 'teamnaam').match(/-(\d+)|DVSA (\d+)$/); return m ? +(m[1] || m[2]) : 0; }
+        teams.sort(function (a, b) { return leeftijd(a) - leeftijd(b) || (/MO/.test(v(a, 'teamnaam')) - /MO/.test(v(b, 'teamnaam'))) || volgnr(a) - volgnr(b); });
         var jeugd = [], senioren = [];
         teams.forEach(function (t) { (/senior|veteraan|35|45|55/i.test(v(t, 'leeftijdscategorie')) && !isJeugd(v(t, 'teamnaam')) ? senioren : jeugd).push(t); });
         function kaart(t) {
