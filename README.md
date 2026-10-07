@@ -6,14 +6,19 @@ staat binnen een paar minuten vanzelf online.
 
 ## Iets aanpassen
 
-Alles wat je normaal wilt veranderen staat in de map `content/`. Je kunt de bestanden
+**Makkelijkst: via het beheerscherm.** Ga naar https://app.pagescms.org, log in en kies
+DVSA-Amerongen/website. Daar kun je nieuws plaatsen (met foto), de melding bovenaan aan- en
+uitzetten, sponsors bijwerken en de club-pagina's aanpassen. Na **Save** staat het binnen een
+paar minuten op de site.
+
+Het kan ook rechtstreeks in GitHub: alles wat je normaal wilt veranderen staat in de map `content/`. Je kunt de bestanden
 gewoon op github.com openen, op het potloodje klikken, aanpassen en onderaan op
 **Commit changes** klikken.
 
 | Wat | Waar |
 |---|---|
-| Nieuwsbericht plaatsen | Nieuw bestand in `content/nieuws/` (zie `_VOORBEELD.md.txt`) |
-| Melding bovenaan (bijv. Grote Clubactie) aan/uit | `content/site.json` → `melding` → `"aan": true` of `false` |
+| Nieuwsbericht plaatsen | Nieuw bestand in `content/nieuws/` (naam: `JJJJ-MM-DD-titel.md`) |
+| Melding bovenaan (bijv. Grote Clubactie) aan/uit | `content/melding.json` → `"aan": true` of `false` |
 | Mailadressen, adres, kantinetijden, contributie | `content/site.json` |
 | Sponsor toevoegen of verwijderen | `content/sponsors.json`, logo in `static/img/sponsors/` |
 | Club-pagina's (gedragscode, geschiedenis, ...) | `content/paginas/` |

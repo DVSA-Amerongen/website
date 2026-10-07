@@ -8,31 +8,112 @@
   "sportpark": "Sportpark De Burgwal",
   "email": "info@dvsa.nl",
   "mailadressen": [
-    {"rol": "Algemene vragen", "adres": "info@dvsa.nl", "uitleg": "Voor alles waarvan je niet weet bij wie het hoort."},
-    {"rol": "Ledenadministratie", "adres": "ledenadministratie@dvsa.nl", "uitleg": "Aanmelden, opzeggen (vóór 1 juni) en adreswijzigingen."},
-    {"rol": "Secretaris", "adres": "secretaris@dvsa.nl", "uitleg": "Post voor het bestuur, privacyvragen."},
-    {"rol": "Voorzitter", "adres": "voorzitter@dvsa.nl", "uitleg": "Rechtstreeks contact met de voorzitter."},
-    {"rol": "Vertrouwenscontactpersoon", "adres": "vcp@dvsa.nl", "uitleg": "Elsbeth Kuus. Ook bereikbaar via vertrouwen@dvsa.nl."}
+    {
+      "rol": "Algemene vragen",
+      "adres": "info@dvsa.nl",
+      "uitleg": "Voor alles waarvan je niet weet bij wie het hoort."
+    },
+    {
+      "rol": "Ledenadministratie",
+      "adres": "ledenadministratie@dvsa.nl",
+      "uitleg": "Aanmelden, opzeggen (vóór 1 juni) en adreswijzigingen."
+    },
+    {
+      "rol": "Secretaris",
+      "adres": "secretaris@dvsa.nl",
+      "uitleg": "Post voor het bestuur, privacyvragen."
+    },
+    {
+      "rol": "Voorzitter",
+      "adres": "voorzitter@dvsa.nl",
+      "uitleg": "Rechtstreeks contact met de voorzitter."
+    },
+    {
+      "rol": "Vertrouwenscontactpersoon",
+      "adres": "vcp@dvsa.nl",
+      "uitleg": "Elsbeth Kuus. Ook bereikbaar via vertrouwen@dvsa.nl."
+    }
   ],
   "facebook": "https://www.facebook.com/vvdvsa/",
   "instagram": "https://www.instagram.com/dvsa_amerongen/",
   "whatsapp": "https://whatsapp.com/channel/0029Vb8xFaSDp2Q55LNuBN3z",
   "aanmeldformulier": "https://dvsa.sportlink-clubsites.nl/club_aanmelden",
-  "melding": {
-    "aan": true,
-    "tekst": "<strong>Grote Clubactie loopt!</strong> Koop een lot: 85% gaat naar DVSA.",
-    "knop": "Koop een lot →",
-    "link": "https://lot.clubactie.nl/lot/dvsa-door-vriendschap-sterk-amerongen/405359"
-  },
   "kantine": [
-    ["Maandag", "Gesloten"], ["Dinsdag", "Gesloten"], ["Woensdag", "19:30 – 00:00"], ["Donderdag", "19:30 – 00:00"],
-    ["Vrijdag", "19:00 – 00:00"], ["Zaterdag", "08:00 – 20:00"], ["Zondag", "Gesloten"]
+    [
+      "Maandag",
+      "Gesloten"
+    ],
+    [
+      "Dinsdag",
+      "Gesloten"
+    ],
+    [
+      "Woensdag",
+      "19:30 – 00:00"
+    ],
+    [
+      "Donderdag",
+      "19:30 – 00:00"
+    ],
+    [
+      "Vrijdag",
+      "19:00 – 00:00"
+    ],
+    [
+      "Zaterdag",
+      "08:00 – 20:00"
+    ],
+    [
+      "Zondag",
+      "Gesloten"
+    ]
   ],
   "contributie": [
-    ["Mini's", "JO7 en jonger", "€ 75"], ["Pupillen", "JO8 – JO12", "€ 155"], ["Junioren", "JO13 – JO18", "€ 175"],
-    ["Senioren", "JO19 en ouder", "€ 200"], ["Studenten", "op vertoon van studentenpas", "€ 175"],
-    ["35+ / 45+ / 55+", "volledig speelgerechtigd lid", "€ 100"], ["Trainingslid", "alleen trainen", "€ 100"],
-    ["Trainingslid plus", "trainen en af en toe een wedstrijd", "€ 130"], ["Niet-spelend lid", "bijvoorbeeld als vrijwilliger", "€ 75"]
+    [
+      "Mini's",
+      "JO7 en jonger",
+      "€ 75"
+    ],
+    [
+      "Pupillen",
+      "JO8 – JO12",
+      "€ 155"
+    ],
+    [
+      "Junioren",
+      "JO13 – JO18",
+      "€ 175"
+    ],
+    [
+      "Senioren",
+      "JO19 en ouder",
+      "€ 200"
+    ],
+    [
+      "Studenten",
+      "op vertoon van studentenpas",
+      "€ 175"
+    ],
+    [
+      "35+ / 45+ / 55+",
+      "volledig speelgerechtigd lid",
+      "€ 100"
+    ],
+    [
+      "Trainingslid",
+      "alleen trainen",
+      "€ 100"
+    ],
+    [
+      "Trainingslid plus",
+      "trainen en af en toe een wedstrijd",
+      "€ 130"
+    ],
+    [
+      "Niet-spelend lid",
+      "bijvoorbeeld als vrijwilliger",
+      "€ 75"
+    ]
   ],
   "sportlink_eerste_elftal": "DVSA 1"
 }

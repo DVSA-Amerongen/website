@@ -1,0 +1,157 @@
+# Beheerscherm (Pages CMS, https://app.pagescms.org)
+# Hiermee kunnen bestuur, trainers en het dartsteam zonder GitHub-kennis
+# nieuws plaatsen en de melding, sponsors en club-pagina's aanpassen.
+
+media:
+  input: static/img
+  output: /img
+
+content:
+  - name: nieuws
+    label: Nieuws
+    type: collection
+    path: content/nieuws
+    filename: "{year}-{month}-{day}-{fields.titel}.md"
+    view:
+      fields: [titel, datum, categorie]
+      primary: titel
+      sort: [datum, titel]
+      default:
+        sort: datum
+        order: desc
+    fields:
+      - name: titel
+        label: Titel
+        type: string
+        required: true
+      - name: datum
+        label: Datum
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: categorie
+        label: Categorie
+        type: select
+        required: true
+        options:
+          values: [DVSA 1, Jeugd, DC DVSA, Club]
+      - name: intro
+        label: Korte samenvatting
+        description: Eén of twee zinnen. Deze komen op de homepage en in het nieuwsoverzicht.
+        type: text
+        required: true
+      - name: foto
+        label: Foto (optioneel)
+        type: image
+        options:
+          input: static/img/nieuws
+          output: /img/nieuws
+      - name: uitslag
+        label: Uitslag (optioneel)
+        description: "Alleen bij een wedstrijdverslag. Schrijf het zo: Thuisteam | 2 – 1 | Uitteam"
+        type: string
+      - name: doelpunten
+        label: Doelpuntenmakers (optioneel)
+        description: "Bijvoorbeeld: Saddington 33' · Van Veenendaal 60'"
+        type: string
+      - name: body
+        label: Tekst
+        description: Laat een witregel tussen alinea's. Een tussenkopje begin je met ## en een spatie.
+        type: text
+
+  - name: melding
+    label: Melding bovenaan
+    type: file
+    path: content/melding.json
+    format: json
+    fields:
+      - name: aan
+        label: Melding tonen
+        type: boolean
+      - name: kop
+        label: Vetgedrukte kop
+        type: string
+      - name: tekst
+        label: Tekst
+        type: string
+      - name: knop
+        label: Tekst op de knop
+        type: string
+      - name: link
+        label: Link van de knop
+        type: string
+
+  - name: sponsors
+    label: Sponsoren
+    type: file
+    path: content/sponsors.json
+    format: json
+    fields:
+      - name: sponsors
+        label: Sponsoren
+        type: object
+        list: true
+        fields:
+          - name: naam
+            label: Naam
+            type: string
+            required: true
+          - name: website
+            label: Website (leeg laten als er geen is)
+            type: string
+          - name: logo
+            label: Logo
+            type: image
+            options:
+              input: static/img/sponsors
+              output: /img/sponsors
+          - name: achtergrond
+            label: Achtergrondkleur van het logovak
+            description: "Wit is #ffffff. Gebruik een donkere kleur als het logo zelf wit is."
+            type: string
+          - name: groep
+            label: Groep
+            type: select
+            options:
+              values: [hoofd, partner, bord, bal, overig]
+          - name: rol
+            label: Rol (alleen bij partners)
+            type: string
+      - name: ook_dank_aan
+        label: Ook dank aan (sponsors zonder logo)
+        type: string
+        list: true
+
+  - name: paginas
+    label: Club-pagina's
+    type: collection
+    path: content/paginas
+    view:
+      fields: [titel, groep]
+      primary: titel
+    fields:
+      - name: titel
+        label: Titel
+        type: string
+        required: true
+      - name: groep
+        label: Groep in het menu
+        type: select
+        options:
+          values: [Vereniging, Meedoen, Veilig sporten, Overig]
+      - name: volgorde
+        label: Volgorde binnen de groep
+        type: number
+      - name: intro
+        label: Korte omschrijving
+        type: text
+      - name: oud_adres
+        label: Adres op de oude site (niet aanpassen)
+        type: string
+      - name: concept
+        label: Nog niet af (toont een gele melding)
+        type: boolean
+      - name: body
+        label: Tekst
+        type: text

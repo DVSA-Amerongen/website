@@ -5,7 +5,8 @@ Alleen standaard Python, geen extra pakketten nodig. Cloudflare Pages draait dit
 script bij elke wijziging (build command: python3 build.py, output: dist).
 
 Inhoud aanpassen doe je in content/:
-  content/site.json          adres, mailadressen, melding bovenaan, kantinetijden, contributie
+  content/site.json          adres, mailadressen, kantinetijden, contributie
+  content/melding.json       de gele melding bovenaan de homepage
   content/sponsors.json      alle sponsors met logo, website en groep
   content/nieuws/*.md        nieuwsberichten (zie _VOORBEELD.md.txt)
   content/paginas/*.md       de pagina's onder Club (gedragscode, geschiedenis, ...)
@@ -25,6 +26,8 @@ NIEUWS_MAANDEN = 4
 
 SITE = json.load(open(os.path.join(CONTENT, 'site.json'), encoding='utf-8'))
 SPONSORDATA = json.load(open(os.path.join(CONTENT, 'sponsors.json'), encoding='utf-8'))
+MELDING = json.load(open(os.path.join(CONTENT, 'melding.json'), encoding='utf-8'))
+SITE['melding'] = MELDING
 SPONSORS = SPONSORDATA['sponsors']
 MAANDEN = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december']
 
@@ -61,17 +64,49 @@ def markdown(tekst):
     return '\n'.join(uit)
 
 
+def yaml_waarde(w):
+    """Eén YAML-waarde zoals een beheerscherm die wegschrijft: 'tekst', "tekst", true/false of gewone tekst."""
+    w = w.strip()
+    if len(w) >= 2 and w[0] == w[-1] == "'":
+        return w[1:-1].replace("''", "'")
+    if len(w) >= 2 and w[0] == w[-1] == '"':
+        return w[1:-1].replace('\\"', '"').replace('\\n', '\n').replace('\\\\', '\\')
+    return w
+
+
+def lees_frontmatter(blok):
+    """Eenvoudige YAML-lezer voor het kopje bovenaan een .md-bestand (ook >- en | blokken)."""
+    meta, regels, i = {}, blok.split('\n'), 0
+    while i < len(regels):
+        regel = regels[i]
+        i += 1
+        if not regel.strip() or regel.startswith(' ') or ':' not in regel:
+            continue
+        k, w = regel.split(':', 1)
+        w = w.strip()
+        if w[:1] in ('>', '|'):
+            delen = []
+            while i < len(regels) and (regels[i].startswith(' ') or not regels[i].strip()):
+                delen.append(regels[i].strip())
+                i += 1
+            meta[k.strip()] = ' '.join(d for d in delen if d) if w[0] == '>' else '\n'.join(delen).strip()
+        else:
+            # waarde die doorloopt op ingesprongen regels (lange tekst)
+            while i < len(regels) and regels[i].startswith('  ') and regels[i].strip():
+                w += ' ' + regels[i].strip()
+                i += 1
+            meta[k.strip()] = yaml_waarde(w)
+    return meta
+
+
 def lees_md(pad):
-    tekst = open(pad, encoding='utf-8').read()
+    tekst = open(pad, encoding='utf-8').read().replace('\r\n', '\n')
     meta = {}
     m = re.match(r'---\n(.*?)\n---\n?(.*)', tekst, re.S)
     if m:
-        for regel in m.group(1).split('\n'):
-            if ':' in regel:
-                k, w = regel.split(':', 1)
-                meta[k.strip()] = w.strip()
+        meta = lees_frontmatter(m.group(1))
         tekst = m.group(2)
-    meta['concept'] = meta.get('concept', '').lower() == 'true'
+    meta['concept'] = str(meta.get('concept', '')).lower() == 'true'
     meta['body'] = tekst
     return meta
 
@@ -93,7 +128,7 @@ def laad_nieuws():
         if not f.endswith('.md') or f.startswith('_'):
             continue
         m = lees_md(os.path.join(map_, f))
-        d = dt.date.fromisoformat(m['datum'])
+        d = dt.date.fromisoformat(str(m['datum'])[:10])
         if d < grens:
             continue
         m['date'] = d
@@ -142,7 +177,8 @@ def layout(titel, inhoud, actief=None, beschrijving='', melding=False, scripts=(
     mel = ''
     if melding and SITE['melding'].get('aan'):
         m = SITE['melding']
-        mel = '<div class="melding"><div class="wrap"><span>%s</span><a class="knop" href="%s">%s</a></div></div>' % (m['tekst'], e(m['link']), e(m['knop']))
+        kop = '<strong>%s</strong> ' % e(m['kop']) if m.get('kop') else ''
+        mel = '<div class="melding"><div class="wrap"><span>%s%s</span><a class="knop" href="%s">%s</a></div></div>' % (kop, e(m.get('tekst', '')), e(m['link']), e(m['knop']))
     boot = next((s for s in SPONSORS if s['naam'] == 'Bootsystems'), None)
     clubp = [p for p in PAGINAS if p['slug'] in ('organisatie', 'gedragscode', 'vertrouwenscontactpersoon')]
     voet = '''<footer class="voet"><div class="wrap">
