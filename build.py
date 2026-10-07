@@ -267,10 +267,11 @@ def home():
     muur = ''.join(sponsor_tegel(s) for s in rest)
     m = SITE['melding']
     dias = '''<div class="dia actief"><img src="/img/header-team.jpg" alt="Jeugdspelers en trainers van DVSA met Football Makes It Happen"></div>
+<div class="dia"><img src="/img/header-actie-jeugd.jpg" alt="Jeugdspelers van DVSA in actie op De Burgwal" style="object-position:center 45%"></div>
 <div class="dia"><div class="collage">{collage}</div></div>
 <div class="dia"><div class="logomuur"><div class="logomuur-kop"><b>Samen maken we DVSA mogelijk</b><a href="/sponsoren/" style="font-weight:700;color:var(--geel)">Alle sponsoren →</a></div><div class="logomuur-raster">{muur}</div></div></div>
 <div class="dia"><div class="actie-dia"><div><span class="tag">Grote Clubactie</span><h2>Steun DVSA,<br>koop een lot</h2><p>85% van elk lot gaat rechtstreeks naar de club.</p><a class="btn btn-geel btn-groot" href="{link}">Koop een lot</a></div><img src="/img/clubactie.jpg" alt="Poster Grote Clubactie"></div></div>'''.format(collage=collage, muur=muur, link=e(m['link']))
-    n_dia = 4
+    n_dia = 5
     stippen = ''.join('<button aria-label="Dia %d"><span></span></button>' % (i + 1) for i in range(n_dia))
     chips = ''.join(sponsor_tegel(s, 'chip') for s in SPONSORS) * 2
     nieuws = ''.join(nieuws_kaart(n) for n in NIEUWS[:4])
