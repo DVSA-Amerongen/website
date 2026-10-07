@@ -5,6 +5,7 @@ categorie: Jeugd
 intro: Op een zonnige middag in Maarn wint ST DVSA/HDS O19-1 met 1-3 van SVMM en pakt de periodetitel. Een echte teamprestatie!
 uitslag: SVMM O19-1 | 1 – 3 | ST DVSA/HDS O19-1
 doelpunten: Koen (2) · Julian Bos
+foto: /img/nieuws/2026-10-o19-periodekampioen.jpg
 ---
 Kampioenen! Wat een zaterdag voor ST DVSA/HDS O19-1! Op een zonnige middag in Maarn stond de belangrijke wedstrijd tegen SVMM O19-1 op het programma. En wat werd het een zinderende wedstrijd!
 
