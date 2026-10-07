@@ -207,8 +207,10 @@
         }
       }).catch(function () {});
       fetch('/data/teamverslagen.json').then(function (r) { return r.json(); }).then(function (d) {
-        var nn = naam.toLowerCase().replace(/\s+/g, ' ').trim();
-        var mijn = (d || []).filter(function (x) { return (x.teams || []).some(function (t) { return t.toLowerCase().replace(/\s+/g, ' ').trim() === nn; }); });
+        // JO10-1 en O10-1JM zijn hetzelfde team
+        function tn(t) { return String(t).toLowerCase().replace(/\bjo(\d+-\d+)/, 'o$1').replace(/\s+/g, '').replace(/jm$/, ''); }
+        var nn = tn(naam);
+        var mijn = (d || []).filter(function (x) { return (x.teams || []).some(function (t) { return tn(t) === nn; }); });
         el.querySelector('[data-veld=teamverslagen]').innerHTML = mijn.length ? mijn.map(function (x) {
           return '<a href="' + esc(x.url) + '" style="display:block;padding:12px 0;border-top:1px solid var(--lijn-2)"><span style="font-size:13px;color:var(--grijs);font-weight:600">' + esc(x.datum) + '</span><br><b style="font-family:var(--cond);font-size:20px">' + esc(x.titel) + '</b>' + (x.intro ? '<br><small style="color:var(--tekst-2);font-size:15px">' + esc(x.intro) + '</small>' : '') + '<br><span class="link" style="font-size:15px">Lees het verslag →</span></a>';
         }).join('') : '<p class="laden">Nog geen wedstrijdverslagen van dit team.</p>';
