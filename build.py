@@ -271,6 +271,23 @@ SL = '<span class="badge-sl">Automatisch uit Sportlink</span>'
 
 
 # ---------------------------------------------------------------- pagina's
+def zacht(t):
+    # afbreekpunt in lange samengestelde woorden (Evenementen-commissie)
+    return re.sub(r'(?<=\w)(commissie|administratie)', r'&shy;\1', e(t))
+
+
+def vacature_alert():
+    if not VACATURES:
+        return ''
+    n = len(VACATURES)
+    rijen = ''.join('<a class="va-rij" href="%s"><span><b>%s</b><small>%s</small></span><span aria-hidden="true">→</span></a>' % (
+        v['url'], zacht(v['titel']), e(' · '.join(x for x in (v.get('soort'), v.get('uren')) if x))) for v in VACATURES)
+    return '''<section class="sectie"><div class="wrap"><div class="vac-alert">
+<div><span class="va-label"><span class="va-stip"></span>Vacature-alert · %s</span><h2>DVSA zoekt jou!</h2><p>Onze club draait op vrijwilligers. Heb jij zin om mee te bouwen aan DVSA? Bekijk wat er openstaat. Ook als je maar een paar uur hebt.</p><a class="btn" style="background:var(--navy);color:#fff" href="/vrijwilligers/#vacatures">Bekijk de vacatures</a></div>
+<div class="va-lijst">%s</div>
+</div></div></section>''' % ('%d open plekken' % n if n > 1 else '1 open plek', rijen)
+
+
 def home():
     sp = {s['naam']: s for s in SPONSORS}
     gb = sp['Goed-Bouw Bouwaannemers']
@@ -323,7 +340,7 @@ def home():
 <a class="lijst-link" href="/contact/"><span>Route naar De Burgwal</span><span>→</span></a></div></div>
 </div>
 </div></section>
-
+{vac}
 <section class="sectie"><div class="wrap">
 <div class="sectie-kop"><div><h2>Onze jeugd</h2><p>De uitslagen van de jeugdteams van afgelopen week.</p></div><a class="link" href="/wedstrijden/#uitslagen">Alle uitslagen →</a></div>
 <div class="raster zij">
@@ -355,7 +372,7 @@ def home():
 <div style="max-width:640px"><span class="label blauw">WhatsApp-kanaal</span><h2 style="font-size:clamp(30px,4vw,44px);margin:8px 0">Volg DVSA op WhatsApp</h2><p class="tekst-2" style="margin:0 0 18px">Afgelastingen, uitslagen en clubnieuws direct op je telefoon. Scan de code of klik op de knop.</p><a class="btn btn-blauw" href="{wa}">Volg het kanaal</a></div>
 <img src="/img/whatsapp-qr.png" alt="QR-code voor het WhatsApp-kanaal van DVSA" style="width:170px;height:170px;border-radius:12px;border:1px solid var(--lijn)">
 </div></div></section>
-'''.format(dias=dias, stippen=stippen, chips=chips, team=e(SITE['sportlink_eerste_elftal']), nieuws=nieuws, sl=SL, mini=mini,
+'''.format(vac=vacature_alert(), dias=dias, stippen=stippen, chips=chips, team=e(SITE['sportlink_eerste_elftal']), nieuws=nieuws, sl=SL, mini=mini,
            gbu=e(gb['website']), gbl=e(gb['logo']), ingu=e(ing['website']), ingl=e(ing['logo']), wa=e(SITE['whatsapp']))
     # grid op smalle schermen
     inhoud = inhoud.replace('grid-template-columns:minmax(0,3fr) minmax(0,2fr)', 'grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))')

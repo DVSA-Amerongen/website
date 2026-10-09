@@ -267,3 +267,18 @@ main{flex:1}
 .geel-kaart .kantine-rij{gap:16px}
 .geel-kaart .kantine-rij b{text-align:right}
 .vac-kaart{min-width:0;overflow-wrap:break-word}
+.vac-alert{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:36px;align-items:center;background:var(--geel);border-radius:var(--r);padding:40px}
+.vac-alert h2{font-size:clamp(34px,4.5vw,52px);margin:10px 0 8px}
+.vac-alert p{margin:0 0 20px;max-width:520px;color:var(--navy)}
+.va-label{display:inline-flex;align-items:center;gap:10px;background:var(--navy);color:#fff;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:999px}
+.va-stip{width:10px;height:10px;border-radius:50%;background:#FF4D4D;box-shadow:0 0 0 0 rgba(255,77,77,.7);animation:va-puls 1.8s infinite}
+@keyframes va-puls{0%{box-shadow:0 0 0 0 rgba(255,77,77,.7)}70%{box-shadow:0 0 0 10px rgba(255,77,77,0)}100%{box-shadow:0 0 0 0 rgba(255,77,77,0)}}
+@media (prefers-reduced-motion:reduce){.va-stip{animation:none}}
+.va-lijst{display:flex;flex-direction:column;gap:10px}
+.va-rij{display:flex;justify-content:space-between;align-items:center;gap:16px;background:#fff;border-radius:14px;padding:16px 20px;color:var(--navy);font-size:22px;font-weight:700;transition:transform .15s}
+.va-rij:hover{transform:translateX(4px)}
+.va-rij span:first-child{min-width:0}
+.va-rij b{display:block;font-family:var(--cond);font-size:24px;overflow-wrap:break-word}
+.va-rij small{display:block;font-family:inherit;font-size:14px;font-weight:600;color:var(--grijs)}
+@media (max-width:760px){.vac-alert{grid-template-columns:minmax(0,1fr);padding:28px 22px;gap:22px}}
+@media (max-width:600px){.va-rij b{font-size:21px}.va-label{font-size:11px;letter-spacing:.05em}.va-rij{padding:14px 16px}}
