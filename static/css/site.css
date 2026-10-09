@@ -94,6 +94,8 @@ h1,h2,h3{font-family:var(--cond);font-weight:800;text-transform:uppercase;line-h
 .dia>img{width:100%;height:100%;object-fit:cover;object-position:center top}
 .car-knop{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.88);color:var(--navy);cursor:pointer;display:grid;place-items:center;z-index:2}
 .car-knop.vorige{left:16px}.car-knop.volgende{right:16px}
+/* pijlknoppen niet laten verwarren met het wedstrijdblok .volgende */
+.car-knop.vorige,.car-knop.volgende{background:rgba(255,255,255,.88);padding:0;display:grid;border-radius:50%;gap:0;flex-direction:row}
 .stippen{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:center;gap:4px;z-index:2}
 .stippen button{width:28px;height:28px;border:0;background:none;padding:0;cursor:pointer;display:grid;place-items:center}
 .stippen button span{display:block;width:10px;height:10px;border-radius:99px;background:rgba(255,255,255,.55)}
