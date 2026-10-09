@@ -188,3 +188,26 @@ content:
             options:
               input: static/img/teams
               output: /img/teams
+
+  - name: bestuur
+    label: Bestuur
+    type: file
+    path: content/bestuur.json
+    format: json
+    fields:
+      - name: bestuur
+        label: Bestuursleden (in deze volgorde op de pagina Organisatie)
+        type: object
+        list: true
+        fields:
+          - name: functie
+            label: Functie
+            type: string
+            required: true
+          - name: naam
+            label: Naam
+            type: string
+            required: true
+          - name: mail
+            label: Mailadres (optioneel)
+            type: string
