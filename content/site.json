@@ -29,6 +29,16 @@
       "uitleg": "Rechtstreeks contact met de voorzitter."
     },
     {
+      "rol": "Penningmeester",
+      "adres": "penningmeester@dvsa.nl",
+      "uitleg": "Contributie, facturen en andere financiële vragen."
+    },
+    {
+      "rol": "Wedstrijdsecretaris",
+      "adres": "wedstrijdsecretaris@dvsa.nl",
+      "uitleg": "Wedstrijden, verplaatsingen en afgelastingen."
+    },
+    {
       "rol": "Vertrouwenscontactpersoon",
       "adres": "vcp@dvsa.nl",
       "uitleg": "Elsbeth Kuus. Ook bereikbaar via vertrouwen@dvsa.nl."
