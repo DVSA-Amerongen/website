@@ -248,4 +248,5 @@ content:
         default: secretaris@dvsa.nl
       - name: body
         label: Vacaturetekst
-        type: rich-text
+        description: Laat een witregel tussen alinea's. Een tussenkopje begin je met ## en een spatie, een opsomming met - en een spatie.
+        type: text
