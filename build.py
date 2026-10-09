@@ -575,7 +575,7 @@ def sponsoren():
 
 
 def contact():
-    mails = ''.join('<a class="kaart" href="mailto:%s" style="border:1px solid var(--lijn);display:block"><span class="label blauw">%s</span><span class="groot" style="font-size:22px;margin:6px 0;word-break:break-word">%s</span><span class="tekst-2" style="font-size:15px">%s</span></a>' % (e(m['adres']), e(m['rol']), e(m['adres']), e(m['uitleg'])) for m in SITE['mailadressen'])
+    mails = ''.join('<a class="kaart" href="mailto:%s" style="border:1px solid var(--lijn);display:block"><span class="label blauw">%s</span><span class="groot" style="font-size:21px;margin:6px 0;overflow-wrap:anywhere">%s</span><span class="tekst-2" style="font-size:15px">%s</span></a>' % (e(m['adres']), e(m['rol']), e(m['adres']).replace('@', '<wbr>@'), e(m['uitleg'])) for m in SITE['mailadressen'])
     mails += '<div class="kaart" style="background:var(--blauw);color:#fff"><span class="label geel">Langskomen</span><span class="groot" style="font-size:22px;margin:6px 0">Zaterdag in de kantine</span><span style="font-size:15px;opacity:.9">Kom gerust even langs. Op zaterdag is de kantine open van 08:00 tot 20:00.</span></div>'
     q = (SITE['adres'] + ' ' + SITE['postcode_plaats']).replace(' ', '+')
     inhoud = hero('Contact', 'Vragen over lid worden, een team, sponsoring of iets anders? Mail de juiste persoon of kom langs op zaterdag.')
