@@ -13,13 +13,17 @@
     {
       "functie": "Secretaris",
       "naam": "Bob Hellinga",
-      "extra": "Ook ledenadministratie (interim)",
       "mail": "secretaris@dvsa.nl"
     },
     {
       "functie": "Wedstrijdsecretaris",
       "naam": "Martijn Baars",
       "mail": ""
+    },
+    {
+      "functie": "Ledenadministratie (interim)",
+      "naam": "Bob Hellinga",
+      "mail": "ledenadministratie@dvsa.nl"
     },
     {
       "functie": "Algemeen bestuurslid",
