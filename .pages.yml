@@ -211,3 +211,41 @@ content:
           - name: mail
             label: Mailadres (optioneel)
             type: string
+
+  - name: vacatures
+    label: Vacatures
+    type: collection
+    path: content/vacatures
+    filename: "{fields.titel}.md"
+    view:
+      fields: [titel, open]
+      primary: titel
+    fields:
+      - name: titel
+        label: Functie
+        type: string
+        required: true
+      - name: open
+        label: Vacature staat open (uitzetten als de plek is ingevuld)
+        type: boolean
+        default: true
+      - name: soort
+        label: Soort (bijv. Vrijwilliger, Commissielid)
+        type: string
+      - name: uren
+        label: Tijd (bijv. Ongeveer 2 uur per week)
+        type: string
+      - name: plek
+        label: Waar / hoe vaak (bijv. Grotendeels vanuit huis)
+        type: string
+      - name: kort
+        label: Korte omschrijving (één of twee zinnen)
+        type: text
+        required: true
+      - name: contact
+        label: Mailadres voor reacties
+        type: string
+        default: secretaris@dvsa.nl
+      - name: body
+        label: Vacaturetekst
+        type: rich-text
