@@ -4,7 +4,7 @@ soort: Vrijwilliger
 uren: Ongeveer 2 uur per week
 plek: Grotendeels vanuit huis
 kort: Jij zorgt dat alle ledengegevens kloppen. Van nieuwe aanmeldingen tot overschrijvingen bij de KNVB.
-contact: voorzitter@dvsa.nl
+contact: secretaris@dvsa.nl
 ---
 DVSA is een gezellige en groeiende voetbalvereniging met meer dan 200 leden. We zoeken versterking voor onze ledenadministratie, zodat alles achter de schermen soepel blijft lopen.
 
@@ -37,4 +37,4 @@ Als vrijwilliger ledenadministratie ben jij verantwoordelijk voor het correct ve
 
 ## Interesse?
 
-Lijkt het je leuk om DVSA te ondersteunen? Neem contact op met het bestuur via [voorzitter@dvsa.nl](mailto:voorzitter@dvsa.nl?subject=Vacature%20ledenadministratie) of spreek ons aan op de club!
+Lijkt het je leuk om DVSA te ondersteunen? Neem contact op met het bestuur via [secretaris@dvsa.nl](mailto:secretaris@dvsa.nl?subject=Vacature%20ledenadministratie) of spreek ons aan op de club!

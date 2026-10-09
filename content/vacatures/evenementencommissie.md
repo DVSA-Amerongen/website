@@ -4,7 +4,7 @@ soort: Commissielid
 uren: Je kiest zelf hoeveel je doet
 plek: Minimaal één evenement per jaar
 kort: Organiseer toernooien, feestavonden of familiedagen voor de club. Je kiest zelf hoeveel je doet.
-contact: voorzitter@dvsa.nl
+contact: secretaris@dvsa.nl
 ---
 DVSA is een gezellige voetbalvereniging met ruim 200 leden, waar sport en gezelligheid hand in hand gaan. Om onze club levendig en verbindend te houden, organiseren we regelmatig leuke activiteiten en evenementen. Daar kunnen we jouw hulp goed bij gebruiken!
 
@@ -35,4 +35,4 @@ Als lid van de evenementencommissie help je mee bij het organiseren van activite
 
 ## Interesse?
 
-Lijkt het je leuk om iets te organiseren voor jouw club? Meld je aan via [voorzitter@dvsa.nl](mailto:voorzitter@dvsa.nl?subject=Vacature%20evenementencommissie) of spreek iemand van het bestuur aan!
+Lijkt het je leuk om iets te organiseren voor jouw club? Meld je aan via [secretaris@dvsa.nl](mailto:secretaris@dvsa.nl?subject=Vacature%20evenementencommissie) of spreek iemand van het bestuur aan!
