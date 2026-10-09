@@ -257,3 +257,13 @@ main{flex:1}
 .bestuur-kaart>span:nth-child(2){flex:1;min-width:0;line-height:1.3}
 .bestuur-mail{font-size:15px;white-space:nowrap}
 @media (max-width:600px){.bestuur-kaart{flex-wrap:wrap}.bestuur-mail{flex-basis:100%;padding-left:58px}}
+.vac-kaart{display:block;border:2px solid var(--blauw)}
+.vac-tags{display:flex;flex-wrap:wrap;gap:8px}
+.vac-tag{font-size:14px;font-weight:600;background:var(--lichtblauw);color:var(--blauw);padding:5px 10px;border-radius:999px}
+.geel-kaart .kantine-rij{border-color:rgba(14,26,51,.15)}
+.hero .wrap>div{min-width:0}
+.hero h1{overflow-wrap:break-word;hyphens:auto}
+@media (max-width:600px){.hero h1.vac-h1{font-size:34px}}
+.geel-kaart .kantine-rij{gap:16px}
+.geel-kaart .kantine-rij b{text-align:right}
+.vac-kaart{min-width:0;overflow-wrap:break-word}

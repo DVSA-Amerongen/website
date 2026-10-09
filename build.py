@@ -152,8 +152,24 @@ def laad_paginas():
     return res
 
 
+def laad_vacatures():
+    res = []
+    map_ = os.path.join(CONTENT, 'vacatures')
+    if os.path.isdir(map_):
+        for f in sorted(os.listdir(map_)):
+            if f.endswith('.md'):
+                m = lees_md(os.path.join(map_, f))
+                if str(m.get('open', 'true')).lower() == 'false':
+                    continue
+                m['slug'] = f[:-3]
+                m['url'] = '/vrijwilligers/vacatures/%s/' % m['slug']
+                res.append(m)
+    return res
+
+
 NIEUWS = laad_nieuws()
 PAGINAS = laad_paginas()
+VACATURES = laad_vacatures()
 
 
 # ---------------------------------------------------------------- layout
@@ -628,6 +644,13 @@ def vrijwilligers():
                    [('Vrijwilligerstaken: zo werkt het', 'vrijwilligerstaken.pdf'), ('Handleiding vrijwilligerstaken in de app', 'handleiding-vrijwilligerstaken.pdf'),
                     ('Beschrijving kantinedienst', 'beschrijving-kantinedienst.pdf'), ('Kleedkamers en toiletten schoonmaken', 'kleedkamers-schoonmaken-instructie.pdf')])
     inhoud = hero('Vrijwilligers', 'DVSA draait helemaal op vrijwilligers: achter de bar, langs de lijn en in de kleedkamers. Daarom helpt elk lid een paar uur per jaar mee.')
+    if VACATURES:
+        def vk(v):
+            tags = ''.join('<span class="vac-tag">%s</span>' % e(v[k]) for k in ('uren', 'plek') if v.get(k))
+            return ('<a class="kaart vac-kaart" href="%s"><span class="label blauw">Vacature · %s</span><span class="groot" style="font-size:28px;margin:6px 0">%s</span>'
+                    '<p class="tekst-2" style="margin:0 0 14px">%s</p><div class="vac-tags">%s</div><span class="link" style="margin-top:16px;display:inline-block">Bekijk de vacature →</span></a>') % (
+                v['url'], e(v.get('soort', 'Vrijwilliger')), e(v['titel']), e(v.get('kort', '')), tags)
+        inhoud += '''<section class="sectie" id="vacatures"><div class="wrap"><div class="sectie-kop"><div><h2>Openstaande vacatures</h2><p>Zin in een vaste rol bij DVSA? Hier zoeken we nu mensen voor.</p></div></div><div class="raster r2">%s</div></div></section>''' % ''.join(vk(v) for v in VACATURES)
     inhoud += '''<section class="sectie"><div class="wrap raster r3">{blokken}</div></section>
 <section class="sectie"><div class="wrap raster zij">
 <div class="stapel"><div class="sectie-kop" style="margin:0"><div><h2>Zo plan je je taken in</h2><p>In drie stappen, helemaal via je telefoon.</p></div></div><div class="kaart" style="padding:8px 32px">{stappen}</div>
@@ -639,6 +662,16 @@ def vrijwilligers():
 </div></section>
 <section class="sectie"><div class="wrap"><div class="blok-navy"><div><h2>Meer doen dan 10 uur?</h2><p>De club zoekt altijd mensen voor een vaste rol, zoals in een commissie of als leider van een team. Heb je zin om meer te betekenen, mail ons dan.</p></div><a class="btn btn-geel btn-groot" href="mailto:info@dvsa.nl?subject=Vaste%20vrijwilliger">Ik wil helpen</a></div></div></section>'''.format(blokken=blokken, stappen=stappen, docs=docs)
     schrijf('/vrijwilligers/', layout('Vrijwilligers – DVSA', inhoud, 'Club'))
+    for v in VACATURES:
+        mail = v.get('contact') or 'info@dvsa.nl'
+        feiten = ''.join('<div class="kantine-rij"><span>%s</span><b>%s</b></div>' % (k, e(v[x])) for k, x in (('Soort', 'soort'), ('Tijd', 'uren'), ('Waar', 'plek')) if v.get(x))
+        inhoud = '''<section class="hero"><div class="wrap"><div><div class="kruimel"><a href="/club/">Club</a><span>›</span><a href="/vrijwilligers/#vacatures">Vrijwilligers</a><span>›</span><span>Vacature</span></div><h1 class="vac-h1">{tk}</h1><p>{k}</p></div></div></section>
+<section class="sectie"><div class="wrap raster zij"><article class="kaart artikel">{body}</article>
+<aside class="stapel"><div class="geel-kaart"><span class="label">Vacature</span><span class="groot" style="margin:6px 0 10px;overflow-wrap:break-word">{tk}</span>{feiten}<a class="btn" style="background:var(--navy);color:#fff;margin-top:18px" href="mailto:{m}?subject={onderwerp}">Ik heb interesse</a></div>
+<a class="link" href="/vrijwilligers/#vacatures">← Alle vacatures</a></aside></div></section>'''.format(
+            t=e(v['titel']), tk=re.sub(r'(?<=\w)(commissie|administratie)', r'&shy;\1', e(v['titel'])), k=e(v.get('kort', '')), body=markdown(v['body']), feiten=feiten, m=e(mail),
+            onderwerp=('Vacature ' + v['titel']).replace(' ', '%20'))
+        schrijf(v['url'], layout('Vacature %s – DVSA' % v['titel'], inhoud, 'Club', v.get('kort', '')))
 
 
 def niet_gevonden():
