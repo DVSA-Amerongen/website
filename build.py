@@ -513,11 +513,32 @@ def club():
             body = body.replace('<h2>%s</h2>' % inline(k), '<h2 id="%s">%s</h2>' % (slugify(k), inline(k)), 1)
         inhoudsopg = ('<div class="kaart" style="padding:22px 26px"><span class="label">Op deze pagina</span>' + ''.join('<a href="#%s" style="display:block;padding:7px 0;border-top:1px solid var(--lijn-2);font-weight:600;font-size:15px;color:var(--tekst-2)">%s</a>' % (slugify(k), e(k)) for k in koppen) + '</div>') if len(koppen) > 2 else ''
         concept = '<div class="concept">Deze pagina wordt nog gevuld met de tekst van de oude site.</div>' if p['concept'] else ''
+        if p['slug'] == 'organisatie':
+            i = body.find('</p>') + 4 if '</p>' in body else 0
+            body = body[:i] + bestuur_blok() + body[i:]
         inhoud = '''<section class="hero"><div class="wrap"><div><div class="kruimel"><a href="/club/">Club</a><span>›</span><span>{g}</span><span>›</span><span>{t}</span></div><h1>{t}</h1><p>{i}</p></div></div></section>
 <section class="sectie"><div class="wrap club-raster">{menu}<article class="kaart artikel">{c}{body}</article>
 <aside class="stapel"><div class="navy-kaart"><span class="label geel">Iets gezien of meegemaakt?</span><span class="groot" style="margin:8px 0">Praat met de vertrouwens&shy;contactpersoon</span><p style="opacity:.88;font-size:15px;margin:0 0 14px">Elsbeth Kuus luistert, in vertrouwen.</p><a class="btn btn-geel" href="mailto:vcp@dvsa.nl">vcp@dvsa.nl</a></div>{ih}</aside>
 </div></section>'''.format(g=e(p['groep']), t=e(p['titel']), i=e(p.get('intro', '')), menu=menu, c=concept, body=body, ih=inhoudsopg)
         schrijf(p['url'], layout('%s – DVSA' % p['titel'], inhoud, 'Club', p.get('intro', '')))
+
+
+def bestuur_blok():
+    pad = os.path.join(CONTENT, 'bestuur.json')
+    if not os.path.exists(pad):
+        return ''
+    leden = json.load(open(pad, encoding='utf-8')).get('bestuur', [])
+    if not leden:
+        return ''
+    def ini(n):
+        w = [x for x in n.split() if x[:1].isupper()]
+        return (w[0][0] + (w[-1][0] if len(w) > 1 else '')).upper() if w else '?'
+    def kaart(b):
+        extra = '<br><small style="color:var(--grijs)">%s</small>' % e(b['extra']) if b.get('extra') else ''
+        mail = '<a class="link bestuur-mail" href="mailto:%s">%s</a>' % (e(b['mail']), e(b['mail'])) if b.get('mail') else ''
+        return ('<div class="bestuur-kaart"><span class="initialen">%s</span><span><span class="label" style="font-size:12px">%s</span><br>'
+                '<b style="font-family:var(--cond);font-size:21px">%s</b>%s</span>%s</div>') % (e(ini(b['naam'])), e(b['functie']), e(b['naam']), extra, mail)
+    return '<h2 id="bestuur">Het bestuur</h2><div class="bestuur-raster">%s</div>' % ''.join(kaart(b) for b in leden)
 
 
 def sponsoren():

@@ -252,3 +252,8 @@ main{flex:1}
 .fotoshow{position:relative;height:clamp(300px,50vw,560px);background:var(--navy);border-radius:20px;overflow:hidden}
 .fotoshow-baan img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .5s}
 .fotoshow-baan img.actief{opacity:1}
+.bestuur-raster{margin:10px 0 30px;border-top:1px solid var(--lijn-2)}
+.bestuur-kaart{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--lijn-2);min-width:0}
+.bestuur-kaart>span:nth-child(2){flex:1;min-width:0;line-height:1.3}
+.bestuur-mail{font-size:15px;white-space:nowrap}
+@media (max-width:600px){.bestuur-kaart{flex-wrap:wrap}.bestuur-mail{flex-basis:100%;padding-left:58px}}

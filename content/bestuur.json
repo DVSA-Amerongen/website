@@ -1,0 +1,45 @@
+{
+  "bestuur": [
+    {
+      "functie": "Voorzitter",
+      "naam": "Rolf Hopman",
+      "mail": "voorzitter@dvsa.nl"
+    },
+    {
+      "functie": "Penningmeester",
+      "naam": "Niels van den Brink",
+      "mail": ""
+    },
+    {
+      "functie": "Secretaris",
+      "naam": "Bob Hellinga",
+      "extra": "Ook ledenadministratie (interim)",
+      "mail": "secretaris@dvsa.nl"
+    },
+    {
+      "functie": "Wedstrijdsecretaris",
+      "naam": "Martijn Baars",
+      "mail": ""
+    },
+    {
+      "functie": "Algemeen bestuurslid",
+      "naam": "Jasper Gelissen",
+      "mail": ""
+    },
+    {
+      "functie": "Algemeen bestuurslid",
+      "naam": "Bastiaan Veldhuis",
+      "mail": ""
+    },
+    {
+      "functie": "Algemeen bestuurslid",
+      "naam": "Erwin Looijen",
+      "mail": ""
+    },
+    {
+      "functie": "Algemeen bestuurslid",
+      "naam": "Spiro Prifiti",
+      "mail": ""
+    }
+  ]
+}
