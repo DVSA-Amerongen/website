@@ -284,3 +284,6 @@ main{flex:1}
 .va-rij small{display:block;font-family:inherit;font-size:14px;font-weight:600;color:var(--grijs)}
 @media (max-width:760px){.vac-alert{grid-template-columns:minmax(0,1fr);padding:28px 22px;gap:22px}}
 @media (max-width:600px){.va-rij b{font-size:21px}.va-label{font-size:11px;letter-spacing:.05em}.va-rij{padding:14px 16px}}
+.tekst-foto{margin:24px 0}
+.tekst-foto img{width:100%;border-radius:16px;display:block}
+.tekst-foto figcaption{font-size:14px;color:var(--grijs);margin-top:8px}

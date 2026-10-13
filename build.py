@@ -50,6 +50,12 @@ def markdown(tekst):
         regels = [r for r in blok.strip().split('\n') if r.strip()]
         if not regels:
             continue
+        # foto in de tekst: ![bijschrift](/img/...)
+        mf = re.fullmatch(r'!\[([^\]]*)\]\(([^)\s]+)\)', blok.strip())
+        if mf:
+            onder = '<figcaption>%s</figcaption>' % e(mf.group(1)) if mf.group(1) else ''
+            uit.append('<figure class="tekst-foto"><img src="%s" alt="%s" loading="lazy">%s</figure>' % (e(mf.group(2)), e(mf.group(1)), onder))
+            continue
         if regels[0].startswith('## '):
             uit.append('<h2>%s</h2>' % inline(regels[0][3:]))
             regels = regels[1:]

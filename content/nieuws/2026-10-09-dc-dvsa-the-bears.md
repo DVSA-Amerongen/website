@@ -4,6 +4,7 @@ datum: 2026-10-09
 categorie: DC DVSA
 intro: Na vier nederlagen is het raak! Met een 180 van Rick, een 120-finish van Martin en een Erwin op cappuccino pakt DC DVSA de eerste winst van het seizoen.
 uitslag: DC DVSA | 6 – 3 | The Bears
+foto: /img/nieuws/dc-dvsa-the-bears-1.jpg
 ---
 Na vier verloren wedstrijden was het tijd voor een nieuwe kans op succes. De mannen van DC DVSA hadden er zin in, al was niet iedereen even fris aan de start verschenen. Erwin had na een iets té gezellige vrijmibo de overstap gemaakt naar de cappuccino, terwijl de rest het bij een vertrouwd pilsje hield. De missie was duidelijk: de inzet eindelijk eens omzetten in winst!
 
@@ -30,6 +31,8 @@ Vervolgens was het tijd voor onze captain Martin, die dit seizoen voor het eerst
 Tot slot mocht Rick weer eens een single gooien, nadat hij twee weken geleden het 5e wiel aan de wagen was tijdens de singles. Het voelde goed en het resultaat was overeenkomstig: een mooie 3-0 overwinning.
 
 Met een 4-1 voorsprong konden we met vertrouwen aan de koppels beginnen.
+
+![De koppels in actie in de kantine op De Burgwal](/img/nieuws/dc-dvsa-the-bears-2.jpg)
 
 ## 🤝 Koppels: triples voor show, dubbels voor do
 
