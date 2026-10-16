@@ -5,7 +5,7 @@ categorie: Club
 intro: DVSA heeft een contract getekend met Eelke voor het behalen van de KNVB-trainerscursus VS2. De club betaalt de opleiding, en Eelke is er inmiddels volop mee bezig.
 foto: /img/nieuws/eelke-contract-vs2.jpg
 ---
-Goed nieuws voor de toekomst van DVSA: de club heeft een contract getekend met **Eelke** voor het behalen van de **KNVB-trainerscursus VS2**. DVSA neemt de kosten van de opleiding voor zijn rekening.
+Goed nieuws voor de toekomst van DVSA: de club heeft een contract getekend met **Eelke** voor het behalen van de **KNVB-trainerscursus VS2**. DVSA neemt de kosten van de opleiding voor zijn rekening. Voorzitter Rolf Hopman en Eelke zetten samen hun handtekening onder het contract.
 
 Eelke is inmiddels gestart en volop bezig met de opleiding. Met deze cursus doet hij nog meer kennis en ervaring op als trainer, en die neemt hij mee naar het veld op De Burgwal.
 
