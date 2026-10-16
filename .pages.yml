@@ -250,3 +250,26 @@ content:
         label: Vacaturetekst
         description: Laat een witregel tussen alinea's. Een tussenkopje begin je met ## en een spatie, een opsomming met - en een spatie.
         type: text
+
+  - name: kabouters
+    label: Melding kabouters
+    type: file
+    path: content/kabouters.json
+    format: json
+    fields:
+      - name: melding
+        label: Gele melding bovenin het kabouterblok
+        type: object
+        fields:
+          - name: aan
+            label: Melding tonen
+            type: boolean
+          - name: tekst
+            label: Tekst (kort houden)
+            type: string
+          - name: tot
+            label: Tonen tot en met (daarna verdwijnt hij vanzelf)
+            type: date
+          - name: link
+            label: Link voor "Lees meer" (optioneel, bijv. /nieuws/...)
+            type: string

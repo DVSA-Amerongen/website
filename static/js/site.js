@@ -1,5 +1,9 @@
 // Menu, carrousel, tabbladen en nieuwsfilter
 (function () {
+  // tijdelijke banners verbergen na hun einddatum
+  var vandaag = new Date().toISOString().slice(0, 10);
+  document.querySelectorAll('[data-tot]').forEach(function (b) { if (b.dataset.tot && b.dataset.tot < vandaag) b.hidden = true; });
+
   // mobiel menu
   var knop = document.querySelector('.menuknop');
   var nav = document.getElementById('hoofdmenu');

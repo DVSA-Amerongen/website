@@ -287,3 +287,5 @@ main{flex:1}
 .tekst-foto{margin:24px 0}
 .tekst-foto img{width:100%;border-radius:16px;display:block}
 .tekst-foto figcaption{font-size:14px;color:var(--grijs);margin-top:8px}
+.kab-banner{display:flex;gap:10px;align-items:flex-start;background:var(--geel);color:var(--navy);font-weight:700;font-size:15px;line-height:1.4;border-radius:12px;padding:12px 16px;margin:0 0 18px}
+.kab-banner a{color:var(--navy);text-decoration:underline;white-space:nowrap}

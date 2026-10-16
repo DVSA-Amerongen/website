@@ -282,6 +282,21 @@ def zacht(t):
     return re.sub(r'(?<=\w)(commissie|administratie)', r'&shy;\1', e(t))
 
 
+def kabouter_banner():
+    pad = os.path.join(CONTENT, 'kabouters.json')
+    if not os.path.exists(pad):
+        return ''
+    m = json.load(open(pad, encoding='utf-8')).get('melding', {})
+    if not m.get('aan') or not m.get('tekst'):
+        return ''
+    tot = str(m.get('tot') or '')
+    if tot and tot < dt.date.today().isoformat():
+        return ''
+    meer = ' <a href="%s">Lees meer →</a>' % e(m['link']) if m.get('link') else ''
+    # verdwijnt ook vanzelf in de browser na de einddatum
+    return '<div class="kab-banner" data-tot="%s"><span aria-hidden="true">📣</span><span>%s%s</span></div>' % (e(tot), e(m['tekst']), meer)
+
+
 def vacature_alert():
     if not VACATURES:
         return ''
@@ -351,7 +366,7 @@ def home():
 <div class="sectie-kop"><div><h2>Onze jeugd</h2><p>De uitslagen van de jeugdteams van afgelopen week.</p></div><a class="link" href="/wedstrijden/#uitslagen">Alle uitslagen →</a></div>
 <div class="raster zij">
 <div class="kaart"><div data-sl="uitslagen" data-soort="jeugd" data-max="8"><p class="laden">Laden…</p></div></div>
-<div class="navy-kaart" id="kabouters"><span class="label geel">Kabouters · 3 t/m 7 jaar</span><span class="groot" style="font-size:34px;margin:10px 0">Elke zaterdag 9:00 – 10:00 lekker ballen op De Burgwal</span><p style="opacity:.88;margin:0 0 18px">Vrijblijvend kennismaken met voetbal. Spelenderwijs dribbelen, passen en scoren, plezier staat voorop.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-geel" href="mailto:info@dvsa.nl?subject=Aanmelden%20kabouters">Aanmelden voor kabouters</a><a class="btn btn-rand" href="/lid-worden/">Lid worden</a></div></div>
+<div class="navy-kaart" id="kabouters">{kb}<span class="label geel">Kabouters · 3 t/m 7 jaar</span><span class="groot" style="font-size:34px;margin:10px 0">Elke zaterdag 9:00 – 10:00 lekker ballen op De Burgwal</span><p style="opacity:.88;margin:0 0 18px">Vrijblijvend kennismaken met voetbal. Spelenderwijs dribbelen, passen en scoren, plezier staat voorop.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-geel" href="mailto:info@dvsa.nl?subject=Aanmelden%20kabouters">Aanmelden voor kabouters</a><a class="btn btn-rand" href="/lid-worden/">Lid worden</a></div></div>
 </div></div></section>
 
 <section class="sectie"><div class="wrap raster zij">
@@ -378,7 +393,7 @@ def home():
 <div style="max-width:640px"><span class="label blauw">WhatsApp-kanaal</span><h2 style="font-size:clamp(30px,4vw,44px);margin:8px 0">Volg DVSA op WhatsApp</h2><p class="tekst-2" style="margin:0 0 18px">Afgelastingen, uitslagen en clubnieuws direct op je telefoon. Scan de code of klik op de knop.</p><a class="btn btn-blauw" href="{wa}">Volg het kanaal</a></div>
 <img src="/img/whatsapp-qr.png" alt="QR-code voor het WhatsApp-kanaal van DVSA" style="width:170px;height:170px;border-radius:12px;border:1px solid var(--lijn)">
 </div></div></section>
-'''.format(vac=vacature_alert(), dias=dias, stippen=stippen, chips=chips, team=e(SITE['sportlink_eerste_elftal']), nieuws=nieuws, sl=SL, mini=mini,
+'''.format(kb=kabouter_banner(), vac=vacature_alert(), dias=dias, stippen=stippen, chips=chips, team=e(SITE['sportlink_eerste_elftal']), nieuws=nieuws, sl=SL, mini=mini,
            gbu=e(gb['website']), gbl=e(gb['logo']), ingu=e(ing['website']), ingl=e(ing['logo']), wa=e(SITE['whatsapp']))
     # grid op smalle schermen
     inhoud = inhoud.replace('grid-template-columns:minmax(0,3fr) minmax(0,2fr)', 'grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))')
@@ -647,10 +662,10 @@ def lid_worden():
 <div class="kaart"><div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px"><span class="groot" style="font-size:32px">Contributie</span><span style="color:var(--grijs);font-size:15px">Seizoen 2026/2027 · per jaar</span></div>{contr}
 <p class="tekst-2" style="font-size:15px;margin:16px 0 0">Opzeggen kan tot 1 juni door een mail te sturen naar <a class="link" href="mailto:ledenadministratie@dvsa.nl">ledenadministratie@dvsa.nl</a>. Daarna loopt het lidmaatschap een jaar door.</p></div>
 <div class="stapel">
-<div class="navy-kaart" id="kabouters"><span class="label geel">Kabouters · 3 t/m 7 jaar</span><span class="groot" style="margin:10px 0">Elke zaterdag 9:00 – 10:00 lekker ballen</span><p style="opacity:.88;margin:0 0 16px">Vrijblijvend kennismaken met voetbal. Spelenderwijs dribbelen, passen en scoren, plezier staat voorop.</p><a class="btn btn-geel" href="mailto:info@dvsa.nl?subject=Aanmelden%20kabouters">Aanmelden voor kabouters</a></div>
+<div class="navy-kaart" id="kabouters">{kb}<span class="label geel">Kabouters · 3 t/m 7 jaar</span><span class="groot" style="margin:10px 0">Elke zaterdag 9:00 – 10:00 lekker ballen</span><p style="opacity:.88;margin:0 0 16px">Vrijblijvend kennismaken met voetbal. Spelenderwijs dribbelen, passen en scoren, plezier staat voorop.</p><a class="btn btn-geel" href="mailto:info@dvsa.nl?subject=Aanmelden%20kabouters">Aanmelden voor kabouters</a></div>
 <div class="kaart"><span class="label">Samen maken we de club</span><span class="groot" style="font-size:26px;margin:6px 0">Vrijwilligerstaken</span><p class="tekst-2" style="font-size:15px">Elk lid doet 10 punten per jaar; een punt staat voor een uur helpen. Je plant je taken zelf in via de Voetbal.nl-app. Afkopen kan ook, voor €100 per jaar.</p><a class="link" href="/vrijwilligers/">Hoe het werkt →</a></div>
 </div></div></section>
-<section class="sectie"><div class="wrap"><div class="blok-blauw"><div><h2>Klaar om te beginnen?</h2><p>Vragen over het aanmelden? Mail ledenadministratie@dvsa.nl.</p></div>{cta}</div></div></section>'''.format(stappen=stappen, contr=contr, cta=cta)
+<section class="sectie"><div class="wrap"><div class="blok-blauw"><div><h2>Klaar om te beginnen?</h2><p>Vragen over het aanmelden? Mail ledenadministratie@dvsa.nl.</p></div>{cta}</div></div></section>'''.format(kb=kabouter_banner(), stappen=stappen, contr=contr, cta=cta)
     schrijf('/lid-worden/', layout('Lid worden – DVSA', inhoud, 'Lid worden'))
 
 
