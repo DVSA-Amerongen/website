@@ -51,6 +51,10 @@ def markdown(tekst):
         if not regels:
             continue
         # foto in de tekst: ![bijschrift](/img/...)
+        fotos = [re.fullmatch(r'!\[([^\]]*)\]\(([^)\s]+)\)', r.strip()) for r in regels]
+        if len(fotos) > 1 and all(fotos):
+            uit.append('<div class="tekst-fotos">%s</div>' % ''.join('<figure class="tekst-foto"><img src="%s" alt="%s" loading="lazy"></figure>' % (e(f.group(2)), e(f.group(1))) for f in fotos))
+            continue
         mf = re.fullmatch(r'!\[([^\]]*)\]\(([^)\s]+)\)', blok.strip())
         if mf:
             onder = '<figcaption>%s</figcaption>' % e(mf.group(1)) if mf.group(1) else ''
