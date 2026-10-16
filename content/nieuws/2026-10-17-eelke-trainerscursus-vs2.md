@@ -3,6 +3,7 @@ titel: DVSA investeert in trainer Eelke 🎓
 datum: 2026-10-17
 categorie: Club
 intro: DVSA heeft een contract getekend met Eelke voor het behalen van de KNVB-trainerscursus VS2. De club betaalt de opleiding, en Eelke is er inmiddels volop mee bezig.
+foto: /img/nieuws/eelke-contract-vs2.jpg
 ---
 Goed nieuws voor de toekomst van DVSA: de club heeft een contract getekend met **Eelke** voor het behalen van de **KNVB-trainerscursus VS2**. DVSA neemt de kosten van de opleiding voor zijn rekening.
 
