@@ -4,6 +4,22 @@
   var vandaag = new Date().toISOString().slice(0, 10);
   document.querySelectorAll('[data-tot]').forEach(function (b) { if (b.dataset.tot && b.dataset.tot < vandaag) b.hidden = true; });
 
+  // fotocarrousels in berichten
+  document.querySelectorAll('[data-show]').forEach(function (show) {
+    var imgs = show.querySelectorAll('.fotoshow-baan img'), teller = show.querySelector('.show-teller'), nu = 0;
+    function toon(i) {
+      nu = (i + imgs.length) % imgs.length;
+      imgs.forEach(function (x, k) { x.classList.toggle('actief', k === nu); });
+      if (teller) teller.textContent = (nu + 1) + ' / ' + imgs.length;
+    }
+    show.querySelector('.vorige').addEventListener('click', function () { toon(nu - 1); });
+    show.querySelector('.volgende').addEventListener('click', function () { toon(nu + 1); });
+    // vegen op telefoon
+    var x0 = null;
+    show.addEventListener('touchstart', function (ev) { x0 = ev.touches[0].clientX; }, { passive: true });
+    show.addEventListener('touchend', function (ev) { if (x0 === null) return; var dx = ev.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) toon(nu + (dx < 0 ? 1 : -1)); x0 = null; });
+  });
+
   // mobiel menu
   var knop = document.querySelector('.menuknop');
   var nav = document.getElementById('hoofdmenu');

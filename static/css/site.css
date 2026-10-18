@@ -292,3 +292,5 @@ main{flex:1}
 .tekst-fotos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:24px 0}
 .tekst-fotos .tekst-foto{margin:0}
 .tekst-fotos img{aspect-ratio:3/4;object-fit:cover}
+.tekst-show{margin:24px 0}
+.show-teller{position:absolute;right:12px;bottom:12px;z-index:2;background:rgba(14,26,51,.75);color:#fff;font-size:13px;font-weight:700;padding:4px 10px;border-radius:99px}

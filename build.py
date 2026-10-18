@@ -52,6 +52,15 @@ def markdown(tekst):
             continue
         # foto in de tekst: ![bijschrift](/img/...)
         fotos = [re.fullmatch(r'!\[([^\]]*)\]\(([^)\s]+)\)', r.strip()) for r in regels]
+        if len(fotos) > 2 and all(fotos):
+            # drie of meer foto's onder elkaar: fotocarrousel
+            pijl = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="%s"/></svg>'
+            uit.append('<div class="fotoshow tekst-show" data-show><div class="fotoshow-baan">%s</div>'
+                       '<button class="car-knop vorige" aria-label="Vorige foto">%s</button><button class="car-knop volgende" aria-label="Volgende foto">%s</button>'
+                       '<span class="show-teller" aria-live="polite">1 / %d</span></div>' % (
+                ''.join('<img src="%s" alt="%s"%s%s>' % (e(f.group(2)), e(f.group(1)), ' class="actief"' if i == 0 else '', '' if i == 0 else ' loading="lazy"') for i, f in enumerate(fotos)),
+                pijl % 'M15 5l-7 7 7 7', pijl % 'M9 5l7 7-7 7', len(fotos)))
+            continue
         if len(fotos) > 1 and all(fotos):
             uit.append('<div class="tekst-fotos">%s</div>' % ''.join('<figure class="tekst-foto"><img src="%s" alt="%s" loading="lazy"></figure>' % (e(f.group(2)), e(f.group(1))) for f in fotos))
             continue
