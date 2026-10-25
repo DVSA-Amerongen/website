@@ -206,7 +206,7 @@ def sponsor_tegel(s, cls='', extra=''):
     return '<div class="%s" title="%s" style="%s"%s>%s</div>' % (c, e(s['naam']), stijl, extra, inner)
 
 
-def layout(titel, inhoud, actief=None, beschrijving='', melding=False, scripts=('site',)):
+def layout(titel, inhoud, actief=None, beschrijving='', melding=False, scripts=('site',), afbeelding='/img/header-team.jpg'):
     nav = ''.join('<a href="%s"%s>%s</a>' % (u, ' aria-current="page"' if n == actief else '', n) for n, u in NAV)
     nav += '<a class="knop-lid" href="/lid-worden/"%s>Lid worden</a>' % (' aria-current="page"' if actief == 'Lid worden' else '')
     mel = ''
@@ -237,7 +237,10 @@ def layout(titel, inhoud, actief=None, beschrijving='', melding=False, scripts=(
 <meta name="description" content="{besch}">
 <meta property="og:title" content="{titel}">
 <meta property="og:description" content="{besch}">
-<meta property="og:image" content="/img/header-team.jpg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DVSA Amerongen">
+<meta property="og:image" content="{ogimg}">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/img/dvsa-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -259,7 +262,7 @@ def layout(titel, inhoud, actief=None, beschrijving='', melding=False, scripts=(
 {js}
 </body>
 </html>
-'''.format(titel=e(titel), besch=e(beschrijving or 'Voetbalvereniging DVSA (Door Vriendschap Sterk Amerongen) op Sportpark De Burgwal in Amerongen.'),
+'''.format(ogimg=e(afbeelding if afbeelding.startswith('http') else 'https://www.dvsa.nl' + afbeelding), titel=e(titel), besch=e(beschrijving or 'Voetbalvereniging DVSA (Door Vriendschap Sterk Amerongen) op Sportpark De Burgwal in Amerongen.'),
            mel=mel, nav=nav, inhoud=inhoud, voet=voet, js=js)
 
 
@@ -479,7 +482,7 @@ def nieuws_paginas():
 </div></section>'''.format(cs=slugify(n['categorie']), c=e(n['categorie']), d=datum_nl(n['date']), t=e(n['titel']), i=e(n.get('intro', '')),
                             score=score, concept=concept, foto=foto, body=markdown(n['body']), wt=e(n['titel'] + ' https://www.dvsa.nl' + n['url']).replace(' ', '%20'),
                             u=n['url'], meer=meer, wa=e(SITE['whatsapp']))
-        schrijf(n['url'], layout('%s – DVSA' % n['titel'], inhoud, 'Nieuws', n.get('intro', '')))
+        schrijf(n['url'], layout('%s – DVSA' % n['titel'], inhoud, 'Nieuws', n.get('intro', ''), afbeelding=n.get('foto') or '/img/header-team.jpg'))
 
 
 def wedstrijden():
@@ -739,7 +742,7 @@ def vrijwilligers():
 <div class="geel-kaart"><span class="groot">Liever afkopen?</span><p style="margin:10px 0 16px">Voor €100 per jaar ben je klaar met je vrijwilligerspunten. Laat het weten aan de ledenadministratie.</p><a class="btn" style="background:var(--navy);color:#fff" href="mailto:ledenadministratie@dvsa.nl?subject=Vrijwilligerstaken%20afkopen">Mail de ledenadministratie</a></div></div>
 </div></section>
 <section class="sectie"><div class="wrap"><div class="blok-navy"><div><h2>Meer doen dan 10 uur?</h2><p>De club zoekt altijd mensen voor een vaste rol, zoals in een commissie of als leider van een team. Heb je zin om meer te betekenen, mail ons dan.</p></div><a class="btn btn-geel btn-groot" href="mailto:info@dvsa.nl?subject=Vaste%20vrijwilliger">Ik wil helpen</a></div></div></section>'''.format(blokken=blokken, stappen=stappen, docs=docs)
-    schrijf('/vrijwilligers/', layout('Vrijwilligers – DVSA', inhoud, 'Club'))
+    schrijf('/vrijwilligers/', layout('Vrijwilligers – DVSA', inhoud, 'Club', 'DVSA zoekt vrijwilligers! Bekijk de openstaande vacatures en help mee op De Burgwal.', afbeelding='/img/deel/vacature-alert.jpg'))
     for v in VACATURES:
         mail = v.get('contact') or 'info@dvsa.nl'
         feiten = ''.join('<div class="kantine-rij"><span>%s</span><b>%s</b></div>' % (k, e(v[x])) for k, x in (('Soort', 'soort'), ('Tijd', 'uren'), ('Waar', 'plek')) if v.get(x))
@@ -749,7 +752,7 @@ def vrijwilligers():
 <a class="link" href="/vrijwilligers/#vacatures">← Alle vacatures</a></aside></div></section>'''.format(
             t=e(v['titel']), tk=re.sub(r'(?<=\w)(commissie|administratie)', r'&shy;\1', e(v['titel'])), k=e(v.get('kort', '')), body=markdown(v['body']), feiten=feiten, m=e(mail),
             onderwerp=('Vacature ' + v['titel']).replace(' ', '%20'))
-        schrijf(v['url'], layout('Vacature %s – DVSA' % v['titel'], inhoud, 'Club', v.get('kort', '')))
+        schrijf(v['url'], layout('Vacature %s – DVSA' % v['titel'], inhoud, 'Club', v.get('kort', ''), afbeelding='/img/deel/vacature-alert.jpg'))
 
 
 def niet_gevonden():
