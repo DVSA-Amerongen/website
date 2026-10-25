@@ -310,6 +310,23 @@ def kabouter_banner():
     return '<div class="kab-banner" data-tot="%s"><span aria-hidden="true">📣</span><span>%s%s</span></div>' % (e(tot), e(m['tekst']), meer)
 
 
+def social_blok():
+    fb = SITE.get('facebook', '')
+    ig = SITE.get('instagram', '')
+    ig_feed = SITE.get('instagram_feed', '')
+    ig_naam = '@' + ig.rstrip('/').split('/')[-1] if ig else 'Instagram'
+    fb_src = 'https://www.facebook.com/plugins/page.php?href=%s&tabs=timeline&width=500&height=620&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false' % fb.replace(':', '%3A').replace('/', '%2F')
+    fb_kaart = '''<div class="kaart social-kaart"><div class="social-kop"><span class="label blauw">Facebook</span><a class="link" href="%s" target="_blank" rel="noopener">Naar onze pagina →</a></div>
+<div class="fb-feed" data-fb-src="%s"><div class="feed-toestemming"><b>Laatste berichten van DVSA op Facebook</b><p>Om de berichten te tonen, laadt deze pagina inhoud van Facebook. Facebook kan daarbij cookies plaatsen.</p><button class="btn btn-blauw" type="button">Toon Facebook-berichten</button></div></div></div>''' % (e(fb), e(fb_src))
+    if ig_feed:
+        ig_inhoud = '<behold-widget feed-id="%s"></behold-widget><script type="module" src="https://w.behold.so/widget.js"></script>' % e(ig_feed)
+    else:
+        ig_inhoud = '<div class="ig-volg"><span class="ig-logo" aria-hidden="true"></span><b>%s</b><p>Foto\'s en filmpjes van wedstrijden, trainingen en alles rond De Burgwal.</p><a class="btn btn-blauw" href="%s" target="_blank" rel="noopener">Volg ons op Instagram</a></div>' % (e(ig_naam), e(ig))
+    ig_kaart = '<div class="kaart social-kaart"><div class="social-kop"><span class="label blauw">Instagram</span><a class="link" href="%s" target="_blank" rel="noopener">%s →</a></div>%s</div>' % (e(ig), e(ig_naam), ig_inhoud)
+    return '''<section class="sectie"><div class="wrap"><div class="sectie-kop"><div><h2>DVSA op social media</h2><p>Het laatste nieuws, foto's en uitslagen, rechtstreeks van onze kanalen.</p></div></div>
+<div class="raster r2 social-raster">%s%s</div></div></section>''' % (fb_kaart, ig_kaart)
+
+
 def vacature_alert():
     if not VACATURES:
         return ''
@@ -402,11 +419,12 @@ def home():
 <div class="sp-mini" style="margin-top:16px">{mini}</div>
 </div></section>
 
+{social}
 <section class="sectie"><div class="wrap"><div class="kaart" style="display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;border:1px solid var(--lijn)">
 <div style="max-width:640px"><span class="label blauw">WhatsApp-kanaal</span><h2 style="font-size:clamp(30px,4vw,44px);margin:8px 0">Volg DVSA op WhatsApp</h2><p class="tekst-2" style="margin:0 0 18px">Afgelastingen, uitslagen en clubnieuws direct op je telefoon. Scan de code of klik op de knop.</p><a class="btn btn-blauw" href="{wa}">Volg het kanaal</a></div>
 <img src="/img/whatsapp-qr.png" alt="QR-code voor het WhatsApp-kanaal van DVSA" style="width:170px;height:170px;border-radius:12px;border:1px solid var(--lijn)">
 </div></div></section>
-'''.format(kb=kabouter_banner(), vac=vacature_alert(), dias=dias, stippen=stippen, chips=chips, team=e(SITE['sportlink_eerste_elftal']), nieuws=nieuws, sl=SL, mini=mini,
+'''.format(social=social_blok(), kb=kabouter_banner(), vac=vacature_alert(), dias=dias, stippen=stippen, chips=chips, team=e(SITE['sportlink_eerste_elftal']), nieuws=nieuws, sl=SL, mini=mini,
            gbu=e(gb['website']), gbl=e(gb['logo']), ingu=e(ing['website']), ingl=e(ing['logo']), wa=e(SITE['whatsapp']))
     # grid op smalle schermen
     inhoud = inhoud.replace('grid-template-columns:minmax(0,3fr) minmax(0,2fr)', 'grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))')

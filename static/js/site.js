@@ -20,6 +20,18 @@
     show.addEventListener('touchend', function (ev) { if (x0 === null) return; var dx = ev.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) toon(nu + (dx < 0 ? 1 : -1)); x0 = null; });
   });
 
+  // Facebook-tijdlijn pas laden na een klik (privacy)
+  document.querySelectorAll('[data-fb-src]').forEach(function (vak) {
+    var knop = vak.querySelector('button');
+    if (!knop) return;
+    knop.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = vak.dataset.fbSrc; f.title = 'Facebook-berichten van DVSA'; f.loading = 'lazy';
+      f.setAttribute('allow', 'encrypted-media'); f.style.cssText = 'border:0;width:100%;height:620px;overflow:hidden';
+      vak.innerHTML = ''; vak.appendChild(f);
+    });
+  });
+
   // mobiel menu
   var knop = document.querySelector('.menuknop');
   var nav = document.getElementById('hoofdmenu');
