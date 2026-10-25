@@ -316,8 +316,9 @@ def social_blok():
     ig_feed = SITE.get('instagram_feed', '')
     ig_naam = '@' + ig.rstrip('/').split('/')[-1] if ig else 'Instagram'
     fb_src = fb  # de breedte wordt in de browser bepaald (site.js)
-    fb_kaart = '''<div class="kaart social-kaart"><div class="social-kop"><span class="label blauw">Facebook</span><a class="link" href="%s" target="_blank" rel="noopener">Naar onze pagina →</a></div>
-<div class="fb-feed" data-fb-pagina="%s"><div class="feed-toestemming"><b>Laatste berichten van DVSA op Facebook</b><p>Om de berichten te tonen, laadt deze pagina inhoud van Facebook. Facebook kan daarbij cookies plaatsen.</p><button class="btn btn-blauw" type="button">Toon Facebook-berichten</button></div></div></div>''' % (e(fb), e(fb_src))
+    fb_kaart = ('<div class="kaart social-kaart"><div class="social-kop"><span class="label blauw">Facebook</span><a class="link" href="%s" target="_blank" rel="noopener">Naar onze pagina →</a></div>'
+                '<div class="ig-volg"><span class="fb-logo" aria-hidden="true">f</span><b>DVSA op Facebook</b><p>Clubnieuws, foto\'s, uitslagen en aankondigingen. Volg onze pagina en mis niets.</p>'
+                '<a class="btn btn-blauw" href="%s" target="_blank" rel="noopener">Volg ons op Facebook</a></div></div>') % (e(fb), e(fb))
     if ig_feed:
         ig_inhoud = '<behold-widget feed-id="%s"></behold-widget><script type="module" src="https://w.behold.so/widget.js"></script>' % e(ig_feed)
     else:
