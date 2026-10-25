@@ -315,9 +315,9 @@ def social_blok():
     ig = SITE.get('instagram', '')
     ig_feed = SITE.get('instagram_feed', '')
     ig_naam = '@' + ig.rstrip('/').split('/')[-1] if ig else 'Instagram'
-    fb_src = 'https://www.facebook.com/plugins/page.php?href=%s&tabs=timeline&width=500&height=620&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false' % fb.replace(':', '%3A').replace('/', '%2F')
+    fb_src = fb  # de breedte wordt in de browser bepaald (site.js)
     fb_kaart = '''<div class="kaart social-kaart"><div class="social-kop"><span class="label blauw">Facebook</span><a class="link" href="%s" target="_blank" rel="noopener">Naar onze pagina →</a></div>
-<div class="fb-feed" data-fb-src="%s"><div class="feed-toestemming"><b>Laatste berichten van DVSA op Facebook</b><p>Om de berichten te tonen, laadt deze pagina inhoud van Facebook. Facebook kan daarbij cookies plaatsen.</p><button class="btn btn-blauw" type="button">Toon Facebook-berichten</button></div></div></div>''' % (e(fb), e(fb_src))
+<div class="fb-feed" data-fb-pagina="%s"><div class="feed-toestemming"><b>Laatste berichten van DVSA op Facebook</b><p>Om de berichten te tonen, laadt deze pagina inhoud van Facebook. Facebook kan daarbij cookies plaatsen.</p><button class="btn btn-blauw" type="button">Toon Facebook-berichten</button></div></div></div>''' % (e(fb), e(fb_src))
     if ig_feed:
         ig_inhoud = '<behold-widget feed-id="%s"></behold-widget><script type="module" src="https://w.behold.so/widget.js"></script>' % e(ig_feed)
     else:

@@ -21,14 +21,23 @@
   });
 
   // Facebook-tijdlijn pas laden na een klik (privacy)
-  document.querySelectorAll('[data-fb-src]').forEach(function (vak) {
+  document.querySelectorAll('[data-fb-pagina]').forEach(function (vak) {
     var knop = vak.querySelector('button');
     if (!knop) return;
     knop.addEventListener('click', function () {
+      // smaller dan de kaart, zodat de foto's in de berichten niet te groot worden
+      var breed = Math.max(220, Math.min(380, Math.floor(vak.clientWidth)));
+      var hoog = 560;
+      var src = 'https://www.facebook.com/plugins/page.php?href=' + encodeURIComponent(vak.dataset.fbPagina) +
+        '&tabs=timeline&width=' + breed + '&height=' + hoog +
+        '&small_header=true&hide_cover=true&show_facepile=false&adapt_container_width=false&lazy=true&locale=nl_NL';
       var f = document.createElement('iframe');
-      f.src = vak.dataset.fbSrc; f.title = 'Facebook-berichten van DVSA'; f.loading = 'lazy';
-      f.setAttribute('allow', 'encrypted-media'); f.style.cssText = 'border:0;width:100%;height:620px;overflow:hidden';
+      f.src = src; f.title = 'Facebook-berichten van DVSA';
+      f.width = breed; f.height = hoog;
+      f.setAttribute('allow', 'encrypted-media'); f.setAttribute('scrolling', 'no');
+      f.style.cssText = 'border:0;overflow:hidden;display:block;margin:0 auto;max-width:100%;border-radius:12px;background:#fff';
       vak.innerHTML = ''; vak.appendChild(f);
+      vak.classList.add('geladen');
     });
   });
 

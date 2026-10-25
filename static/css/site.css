@@ -304,3 +304,4 @@ main{flex:1}
 .ig-logo{width:64px;height:64px;border-radius:18px;background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285AEB 90%);position:relative;margin-bottom:8px}
 .ig-logo:before{content:"";position:absolute;inset:14px;border:4px solid #fff;border-radius:50%}
 .ig-logo:after{content:"";position:absolute;top:10px;right:11px;width:7px;height:7px;background:#fff;border-radius:50%}
+.fb-feed.geladen{justify-content:center;align-items:flex-start;min-height:0}
