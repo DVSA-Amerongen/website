@@ -314,6 +314,8 @@ def social_blok():
     fb = SITE.get('facebook', '')
     ig = SITE.get('instagram', '')
     ig_feed = SITE.get('instagram_feed', '')
+    if not ig_feed:
+        return ''  # zonder feed staan de knoppen in de WhatsApp-balk
     ig_naam = '@' + ig.rstrip('/').split('/')[-1] if ig else 'Instagram'
     fb_src = fb  # de breedte wordt in de browser bepaald (site.js)
     fb_kaart = ('<div class="kaart social-kaart"><div class="social-kop"><span class="label blauw">Facebook</span><a class="link" href="%s" target="_blank" rel="noopener">Naar onze pagina →</a></div>'
@@ -395,7 +397,10 @@ def home():
 {vac}
 {social}
 <section class="sectie"><div class="wrap"><div class="kaart" style="display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;border:1px solid var(--lijn)">
-<div style="max-width:640px"><span class="label blauw">WhatsApp-kanaal</span><h2 style="font-size:clamp(30px,4vw,44px);margin:8px 0">Volg DVSA op WhatsApp</h2><p class="tekst-2" style="margin:0 0 18px">Afgelastingen, uitslagen en clubnieuws direct op je telefoon. Scan de code of klik op de knop.</p><a class="btn btn-blauw" href="{wa}">Volg het kanaal</a></div>
+<div style="max-width:640px"><span class="label blauw">Volg DVSA</span><h2 style="font-size:clamp(30px,4vw,44px);margin:8px 0">Volg DVSA op WhatsApp</h2><p class="tekst-2" style="margin:0 0 18px">Afgelastingen, uitslagen en clubnieuws direct op je telefoon. Scan de code of klik op de knop. Je vindt ons ook op Facebook en Instagram.</p>
+<div class="volg-knoppen"><a class="btn btn-blauw" href="{wa}">Volg het kanaal</a>
+<a class="social-ikoon fb" href="{fb}" target="_blank" rel="noopener" aria-label="DVSA op Facebook" title="Facebook"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M14 8h2.5V4.5H14c-2.5 0-4 1.7-4 4.2V11H7.5v3.5H10V21h3.6v-6.5h2.7l.5-3.5h-3.2V9c0-.6.4-1 1-1z"/></svg></a>
+<a class="social-ikoon ig" href="{ig}" target="_blank" rel="noopener" aria-label="DVSA op Instagram" title="Instagram"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.3" fill="currentColor"/></svg></a></div></div>
 <img src="/img/whatsapp-qr.png" alt="QR-code voor het WhatsApp-kanaal van DVSA" style="width:170px;height:170px;border-radius:12px;border:1px solid var(--lijn)">
 </div></div></section>
 <section class="sectie"><div class="wrap">
@@ -426,7 +431,7 @@ def home():
 </div></section>
 
 '''.format(social=social_blok(), kb=kabouter_banner(), vac=vacature_alert(), dias=dias, stippen=stippen, chips=chips, team=e(SITE['sportlink_eerste_elftal']), nieuws=nieuws, sl=SL, mini=mini,
-           gbu=e(gb['website']), gbl=e(gb['logo']), ingu=e(ing['website']), ingl=e(ing['logo']), wa=e(SITE['whatsapp']))
+           gbu=e(gb['website']), gbl=e(gb['logo']), ingu=e(ing['website']), ingl=e(ing['logo']), wa=e(SITE['whatsapp']), fb=e(SITE.get('facebook', '')), ig=e(SITE.get('instagram', '')))
     # grid op smalle schermen
     inhoud = inhoud.replace('grid-template-columns:minmax(0,3fr) minmax(0,2fr)', 'grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))')
     schrijf('/', layout('DVSA – Door Vriendschap Sterk Amerongen', inhoud, melding=True, scripts=('site', 'sportlink')))
