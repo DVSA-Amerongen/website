@@ -392,6 +392,11 @@ def home():
 </div>
 </div></section>
 {vac}
+{social}
+<section class="sectie"><div class="wrap"><div class="kaart" style="display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;border:1px solid var(--lijn)">
+<div style="max-width:640px"><span class="label blauw">WhatsApp-kanaal</span><h2 style="font-size:clamp(30px,4vw,44px);margin:8px 0">Volg DVSA op WhatsApp</h2><p class="tekst-2" style="margin:0 0 18px">Afgelastingen, uitslagen en clubnieuws direct op je telefoon. Scan de code of klik op de knop.</p><a class="btn btn-blauw" href="{wa}">Volg het kanaal</a></div>
+<img src="/img/whatsapp-qr.png" alt="QR-code voor het WhatsApp-kanaal van DVSA" style="width:170px;height:170px;border-radius:12px;border:1px solid var(--lijn)">
+</div></div></section>
 <section class="sectie"><div class="wrap">
 <div class="sectie-kop"><div><h2>Onze jeugd</h2><p>De uitslagen van de jeugdteams van afgelopen week.</p></div><a class="link" href="/wedstrijden/#uitslagen">Alle uitslagen →</a></div>
 <div class="raster zij">
@@ -419,11 +424,6 @@ def home():
 <div class="sp-mini" style="margin-top:16px">{mini}</div>
 </div></section>
 
-{social}
-<section class="sectie"><div class="wrap"><div class="kaart" style="display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;border:1px solid var(--lijn)">
-<div style="max-width:640px"><span class="label blauw">WhatsApp-kanaal</span><h2 style="font-size:clamp(30px,4vw,44px);margin:8px 0">Volg DVSA op WhatsApp</h2><p class="tekst-2" style="margin:0 0 18px">Afgelastingen, uitslagen en clubnieuws direct op je telefoon. Scan de code of klik op de knop.</p><a class="btn btn-blauw" href="{wa}">Volg het kanaal</a></div>
-<img src="/img/whatsapp-qr.png" alt="QR-code voor het WhatsApp-kanaal van DVSA" style="width:170px;height:170px;border-radius:12px;border:1px solid var(--lijn)">
-</div></div></section>
 '''.format(social=social_blok(), kb=kabouter_banner(), vac=vacature_alert(), dias=dias, stippen=stippen, chips=chips, team=e(SITE['sportlink_eerste_elftal']), nieuws=nieuws, sl=SL, mini=mini,
            gbu=e(gb['website']), gbl=e(gb['logo']), ingu=e(ing['website']), ingl=e(ing['logo']), wa=e(SITE['whatsapp']))
     # grid op smalle schermen
