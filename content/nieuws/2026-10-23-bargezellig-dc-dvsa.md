@@ -34,12 +34,6 @@ Bart had iets meer tijd nodig om zijn motor op temperatuur te krijgen. Hij keek 
 
 Daarna mocht captain Martin aantreden tegen de Queen van Bar Gezellig 3. Een titel die respect verdient, maar waar Martin zich bepaald niet door liet intimideren. Zakelijk, doelgericht en zonder enige vorm van hoffelijkheid op het scorebord: 0-3 voor DVSA.
 
-Terwijl de singles werden afgewerkt, was Dragan ondertussen druk bezig met een heel andere vorm van communicatie. Hij had namelijk contact gekregen met een vrouwelijke supporter van Bar Gezellig 3. Een hondentrimster, zo begrepen wij.
-
-Of was het nou een andere trimster, Dragan? Honden, honder of onder? We hebben het meerdere keren geprobeerd te ontcijferen, maar de communicatie tussen beide partijen bleek niet helemaal op hetzelfde niveau te zitten als de communicatie tussen de pijlen en het dartbord.
-
-Ach, zolang de hondjes er maar netjes bij lopen!
-
 ![DC DVSA aan het werk in Renswoude](/img/nieuws/bargezellig-dc-dvsa-1.jpg)
 
 ## De koppels: wisselen en winnen
