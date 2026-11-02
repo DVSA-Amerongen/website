@@ -1,6 +1,10 @@
 {
   "teamfotos": [
     {
+      "team": "DVSA 1",
+      "foto": "/img/teams/dvsa-1.jpg"
+    },
+    {
       "team": "DVSA O8-1JM",
       "foto": "/img/teams/dvsa-o8-1jm.jpg"
     },
