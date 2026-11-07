@@ -333,6 +333,19 @@ def social_blok():
 <div class="raster r2 social-raster">%s%s</div></div></section>''' % (fb_kaart, ig_kaart)
 
 
+def team_van_de_week():
+    pad = os.path.join(CONTENT, 'teamvandeweek.json')
+    if not os.path.exists(pad):
+        return ''
+    t = json.load(open(pad, encoding='utf-8'))
+    if not t.get('aan') or not t.get('video'):
+        return ''
+    return '''<section class="sectie"><div class="wrap"><div class="sectie-kop"><div><h2>Team van de week</h2><p>Elke week zetten we een team van DVSA in de spotlight.</p></div></div>
+<div class="tvdw"><div class="tvdw-video"><video controls playsinline preload="metadata" poster="%s"><source src="%s" type="video/mp4">Je browser kan deze video niet afspelen.</video></div>
+<div class="tvdw-tekst"><span class="label geel">%s%s</span><h3>%s</h3><p>%s</p><a class="btn btn-geel" href="/teams/">Alle teams van DVSA</a></div></div></div></section>''' % (
+        e(t.get('poster', '')), e(t['video']), e(t.get('team', '')), (' · ' + e(t['datum'])) if t.get('datum') else '', e(t.get('titel', '')), e(t.get('tekst', '')))
+
+
 def vacature_alert():
     if not VACATURES:
         return ''
@@ -397,6 +410,7 @@ def home():
 <a class="lijst-link" href="/contact/"><span>Route naar De Burgwal</span><span>→</span></a></div></div>
 </div>
 </div></section>
+{tvdw}
 {vac}
 {social}
 <section class="sectie"><div class="wrap"><div class="kaart" style="display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;border:1px solid var(--lijn)">
@@ -433,7 +447,7 @@ def home():
 <div class="sp-mini" style="margin-top:16px">{mini}</div>
 </div></section>
 
-'''.format(social=social_blok(), kb=kabouter_banner(), vac=vacature_alert(), dias=dias, stippen=stippen, chips=chips, team=e(SITE['sportlink_eerste_elftal']), nieuws=nieuws, sl=SL, mini=mini,
+'''.format(tvdw=team_van_de_week(), social=social_blok(), kb=kabouter_banner(), vac=vacature_alert(), dias=dias, stippen=stippen, chips=chips, team=e(SITE['sportlink_eerste_elftal']), nieuws=nieuws, sl=SL, mini=mini,
            gbu=e(gb['website']), gbl=e(gb['logo']), ingu=e(ing['website']), ingl=e(ing['logo']), wa=e(SITE['whatsapp']), fb=e(SITE.get('facebook', '')), ig=e(SITE.get('instagram', '')))
     # grid op smalle schermen
     inhoud = inhoud.replace('grid-template-columns:minmax(0,3fr) minmax(0,2fr)', 'grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))')

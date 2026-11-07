@@ -273,3 +273,37 @@ content:
           - name: link
             label: Link voor "Lees meer" (optioneel, bijv. /nieuws/...)
             type: string
+
+  - name: teamvandeweek
+    label: Team van de week
+    type: file
+    path: content/teamvandeweek.json
+    format: json
+    fields:
+      - name: aan
+        label: Blok tonen op de startpagina
+        type: boolean
+      - name: team
+        label: Team (bijv. DVSA O10-1JM)
+        type: string
+      - name: datum
+        label: Datum (bijv. Zaterdag 7 november)
+        type: string
+      - name: titel
+        label: Kop
+        type: string
+      - name: tekst
+        label: Korte tekst
+        type: text
+      - name: video
+        label: Video (mp4, liefst kleiner dan 20 MB)
+        type: file
+        options:
+          input: static/video
+          output: /video
+      - name: poster
+        label: Startbeeld van de video (foto)
+        type: image
+        options:
+          input: static/video
+          output: /video
