@@ -314,7 +314,7 @@ main{flex:1}
 .tekst-foto>img{max-height:640px;object-fit:cover}
 /* team van de week */
 .tvdw{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:40px;align-items:center;background:var(--navy);color:#fff;border-radius:var(--r);padding:32px}
-.tvdw-video video{width:100%;aspect-ratio:9/16;max-height:680px;border-radius:16px;background:#000;display:block;object-fit:contain}
+.tvdw-video video{width:100%;aspect-ratio:1038/2248;max-height:720px;border-radius:16px;background:#000;display:block;object-fit:contain}
 .tvdw-tekst h3{font-family:var(--cond);font-size:clamp(34px,4vw,52px);line-height:1;text-transform:uppercase;margin:12px 0 14px}
 .tvdw-tekst p{opacity:.9;font-size:18px;margin:0 0 22px;max-width:520px}
 @media (max-width:760px){.tvdw{grid-template-columns:minmax(0,1fr);padding:20px;gap:22px}.tvdw-video video{max-height:none}}
