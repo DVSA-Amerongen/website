@@ -372,7 +372,7 @@ def home():
     dias = '''<div class="dia actief"><img src="/img/header-team.jpg" alt="Jeugdspelers en trainers van DVSA met Football Makes It Happen"></div>
 <div class="dia"><img src="/img/header-actie-jeugd.jpg" alt="Jeugdspelers van DVSA in actie op De Burgwal" style="object-position:center 45%"></div>
 <div class="dia"><div class="collage">{collage}</div></div>
-<div class="dia"><div class="logomuur"><div class="logomuur-kop"><b>Samen maken we DVSA mogelijk</b><a href="/sponsoren/" style="font-weight:700;color:var(--geel)">Alle sponsoren →</a></div><div class="logomuur-raster">{muur}</div></div></div>
+<div class="dia"><div class="logomuur"><div class="logomuur-kop"><b>Samen maken we DVSA mogelijk</b><a href="/sponsoren/" style="font-weight:700;color:var(--geel)">Alle sponsoren →</a></div><div class="logomuur-raster">{muur}</div></div></div>'''.format(collage=collage, muur=muur)
     n_dia = 4
     stippen = ''.join('<button aria-label="Dia %d"><span></span></button>' % (i + 1) for i in range(n_dia))
     chips = ''.join(sponsor_tegel(s, 'chip') for s in SPONSORS) * 2
