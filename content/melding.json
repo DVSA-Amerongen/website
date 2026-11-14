@@ -1,7 +1,10 @@
 {
-  "aan": false,
-  "kop": "Grote Clubactie loopt!",
-  "tekst": "Koop een lot: 85% gaat naar DVSA.",
-  "knop": "Koop een lot →",
-  "link": "https://lot.clubactie.nl/lot/dvsa-door-vriendschap-sterk-amerongen/405359"
+  "aan": true,
+  "kop": "Sinterklaas bij DVSA!",
+  "tekst": "Woensdag 2 december voor mini's, JO8 en JO9. Opgeven vóór 25 november.",
+  "knop": "Lees meer →",
+  "link": "/nieuws/sinterklaasfeest-dvsa/",
+  "tot": "2026-12-02",
+  "dia": "/img/nieuws/sinterklaas-dvsa-2026.jpg",
+  "dia_alt": "Sinterklaas bij DVSA op 2 december"
 }

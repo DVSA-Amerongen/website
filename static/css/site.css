@@ -318,3 +318,5 @@ main{flex:1}
 .tvdw-tekst h3{font-family:var(--cond);font-size:clamp(34px,4vw,52px);line-height:1;text-transform:uppercase;margin:12px 0 14px}
 .tvdw-tekst p{opacity:.9;font-size:18px;margin:0 0 22px;max-width:520px}
 @media (max-width:760px){.tvdw{grid-template-columns:minmax(0,1fr);padding:20px;gap:22px}.tvdw-video video{max-height:none}}
+.poster-dia{display:flex;align-items:center;justify-content:center;height:100%;background:#0A2463}
+.poster-dia img{height:100%;width:auto;max-width:100%;object-fit:contain}

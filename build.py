@@ -206,11 +206,17 @@ def sponsor_tegel(s, cls='', extra=''):
     return '<div class="%s" title="%s" style="%s"%s>%s</div>' % (c, e(s['naam']), stijl, extra, inner)
 
 
+def melding_actief():
+    m = SITE['melding']
+    tot = str(m.get('tot') or '')
+    return bool(m.get('aan')) and not (tot and tot < dt.date.today().isoformat())
+
+
 def layout(titel, inhoud, actief=None, beschrijving='', melding=False, scripts=('site',), afbeelding='/img/header-team.jpg'):
     nav = ''.join('<a href="%s"%s>%s</a>' % (u, ' aria-current="page"' if n == actief else '', n) for n, u in NAV)
     nav += '<a class="knop-lid" href="/lid-worden/"%s>Lid worden</a>' % (' aria-current="page"' if actief == 'Lid worden' else '')
     mel = ''
-    if melding and SITE['melding'].get('aan'):
+    if melding and melding_actief():
         m = SITE['melding']
         kop = '<strong>%s</strong> ' % e(m['kop']) if m.get('kop') else ''
         mel = '<div class="melding"><div class="wrap"><span>%s%s</span><a class="knop" href="%s">%s</a></div></div>' % (kop, e(m.get('tekst', '')), e(m['link']), e(m['knop']))
@@ -373,7 +379,9 @@ def home():
 <div class="dia"><img src="/img/header-actie-jeugd.jpg" alt="Jeugdspelers van DVSA in actie op De Burgwal" style="object-position:center 45%"></div>
 <div class="dia"><div class="collage">{collage}</div></div>
 <div class="dia"><div class="logomuur"><div class="logomuur-kop"><b>Samen maken we DVSA mogelijk</b><a href="/sponsoren/" style="font-weight:700;color:var(--geel)">Alle sponsoren →</a></div><div class="logomuur-raster">{muur}</div></div></div>'''.format(collage=collage, muur=muur)
-    n_dia = 4
+    if melding_actief() and m.get('dia'):
+        dias += '\n<div class="dia"><a class="poster-dia" href="%s"><img src="%s" alt="%s"></a></div>' % (e(m['link']), e(m['dia']), e(m.get('dia_alt') or m.get('kop', '')))
+    n_dia = dias.count('class="dia')
     stippen = ''.join('<button aria-label="Dia %d"><span></span></button>' % (i + 1) for i in range(n_dia))
     chips = ''.join(sponsor_tegel(s, 'chip') for s in SPONSORS) * 2
     nieuws = ''.join(nieuws_kaart(n) for n in NIEUWS[:4])
