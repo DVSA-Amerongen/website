@@ -85,6 +85,18 @@ content:
       - name: link
         label: Link van de knop
         type: string
+      - name: tot
+        label: Tonen tot en met (daarna verdwijnt alles vanzelf)
+        type: date
+      - name: dia
+        label: Poster in de carrousel bovenaan (optioneel)
+        type: image
+        options:
+          input: static/img/nieuws
+          output: /img/nieuws
+      - name: dia_alt
+        label: Korte omschrijving van de poster
+        type: string
 
   - name: sponsors
     label: Sponsoren
